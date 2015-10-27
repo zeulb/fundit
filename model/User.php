@@ -1,10 +1,20 @@
 <?php
+include_once "Contribution.php";
+
 class User {
   private $id;
   private $name;
   private $roles;
   private $email;
   private $password;
+
+  private function save() {
+    // update
+  }
+
+  private function fetchContribution() {
+    //fetch from databse
+  }
 
   public function __construct($name, $roles, $email, $password) {
     $this->name = $name;
@@ -50,13 +60,18 @@ class User {
     // get contribution
   }
 
-  private function save() {
-    // update
-  }
-
-  private static function getUser($id) {
+  public static function getUser($id) {
     // select this user, return user object
   }
 
+  public function getContribution() {
+    $contributions = fetchConstribution();
+    $contributionsLength = count($contributions);
+    $totalContribution = 0;
+    for ($i = 0; $i < $contributionsLength; $i++) {
+      $totalContribution += $contributions[i]->getAmount();
+    }
+    return $totalContributions;
+  }
 }
 ?>
