@@ -69,7 +69,7 @@ class User {
     $contributionsLength = count($contributions);
     $totalContribution = 0;
     for ($i = 0; $i < $contributionsLength; $i++) {
-      $totalContribution += $contributions[i]->getAmount();
+      $totalContribution += $contributions[$i]->getAmount();
     }
     return $totalContributions;
   }
