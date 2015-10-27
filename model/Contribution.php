@@ -1,19 +1,20 @@
 <?php
 class Contribution {
-  private $contributionId;
+  private $id;
   private $contributorId;
   private $projectId;
   private $date;
   private $amount;
 
   public function __construct($contributorId, $projectId, $amount) {
-    $this->contributionId = $contributorId;
+    $this->contributorId = $contributorId;
     $this->projectId = $projectId;
     $this->amount = $amount;
+    // create on database, fill id
   }
 
-  public function getContributionId() {
-    return $this->contributionId;
+  public function getId() {
+    return $this->id;
   }
 
   public function getContributorId() {
