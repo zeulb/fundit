@@ -56,10 +56,6 @@ class User {
     return $this->save();
   }
 
-  public function getContribution() {
-    // get contribution
-  }
-
   public static function getUser($id) {
     // select this user, return user object
   }

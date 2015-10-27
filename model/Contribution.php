@@ -6,7 +6,7 @@ class Contribution {
   private $date;
   private $amount;
 
-  public __construct($contributorId, $projectId, $amount) {
+  public function __construct($contributorId, $projectId, $amount) {
     $this->contributionId = $contributorId;
     $this->projectId = $projectId;
     $this->amount = $amount;
