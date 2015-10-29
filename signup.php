@@ -58,15 +58,33 @@
                   if ($password !== $verify_password) {
                     echo "Password lu beda cok";
                   } else {
+                    echo "yey2";
                     $user = User::createNewUser($username, $fullname,
                       $roles, $email, $password);
-                    echo $user;
+
+                    if (isset($user)) {
+                      echo $user->getName()."<br/>";
+                      echo $user->getRoles()."<br/>";
+                      echo $user->getEmail()."<br/>";
+                      echo $user->getUsername()."<br/>";
+                    } else {
+                      $message = "ngaco";
+                      echo "ngaco ";
+                    }
                     echo "yey";
                   }
-              ?>
+                }
 
-              <?php
-                } else {
+                if (isset($message)) {
+                  ?>
+                  <div class="container">
+                    <div class="alert alert-warning">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        File not found
+                  </div>;
+                  <?php
+                }
+
               ?>
               <form method="post" class="form" role="form">
                 <div class="form-group ">
@@ -99,9 +117,6 @@
                 <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
               </form>
               <br/>
-              <?php
-                }
-              ?>
             </div>
             
           </div>
