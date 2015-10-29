@@ -174,3 +174,7 @@ body {
 button {
   text-align: right;
 }
+
+body > div > div > div > div.inner.cover.container > div > p > a {
+  color: blue;
+}

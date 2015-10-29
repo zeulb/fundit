@@ -12,7 +12,6 @@
 
     <!-- Custom styles for this template -->
     <link href="css/cover.css" rel="stylesheet">
-    <link href="css/vertical.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,23 +32,35 @@
               <h3 class="masthead-brand">FundIt</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="index.php">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="project.php">Projects</a></li>
                   <li><a href="#">Contributors</a></li>
-                  <li><a href="signin.php">Sign In</a></li>
+                  <li class="active"><a href="signin.php">Sign In</a></li>
                   <li><a href="signup.php">Sign Up</a></li>
                 </ul>
               </nav>
             </div>
           </div>
-
-          <div class="inner cover">
-            <h1 class="cover-heading">Welcome to FundIt</h1>
-            <p class="lead">Crowdfunding site</p>
-            <p class="lead">
-              <a href="#" class="btn btn-lg btn-default">Learn more</a>
-            </p>
+          <br/>
+          <div class="inner cover container">
+            <div class="row">
+              <form method="post" class="form" role="form">
+                <div class="form-group ">
+                  <label class="control-label" for="username">Username</label>
+                  <input class="form-control" id="username" name="username" required type="text" value="">
+                </div>
+                <div class="form-group ">
+                  <label class="control-label" for="password">Password</label>
+                  <input class="form-control" id="password" name="password" required type="password" value="">
+                </div>
+                <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
+              </form>
+              <br/>
+              <p>Want to sign up ? Click <a href="signup.php"> here </a></p>
+            </div>
+            
           </div>
+
 
           <div class="mastfoot">
             <div class="inner">

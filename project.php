@@ -35,7 +35,8 @@
                   <li><a href="index.php">Home</a></li>
                   <li class="active"><a href="project.php">Projects</a></li>
                   <li><a href="#">Contributors</a></li>
-                  <li><a href="#">Sign In</a></li>
+                  <li><a href="signin.php">Sign In</a></li>
+                  <li><a href="signup.php">Sign Up</a></li>
                 </ul>
               </nav>
             </div>
