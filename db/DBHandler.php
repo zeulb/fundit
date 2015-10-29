@@ -29,15 +29,26 @@ class DBHandler {
   public static function execute($query, $needResult) {
     $instance = new DBHandler();
     $stid = oci_parse($instance->dbh, $query);
-    oci_execute($stid);
+    $r;
+    try {
+      $r = oci_execute($stid);
+    } catch (Exception $e) {
+      //do nothing
+    }
     if ($needResult) {
-      $result = array();
-      while (($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
-        $result[] = $row;
+      if (!$r) {
+        $instance->close();
+        unset($instance);
+        return null;
+      } else {
+        $result = array();
+        while (($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+          $result[] = $row;
+        }
+        $instance->close();
+        unset($instance);
+        return $result;
       }
-      $instance->close();
-      unset($instance);
-      return $result;
     } else {
       $instance->close();
       unset($instance);
