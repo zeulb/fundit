@@ -1,5 +1,6 @@
 <?php
 include_once "Contribution.php";
+include_once "../db/DBHandler.php";
 
 class User {
   private $id;
@@ -9,19 +10,38 @@ class User {
   private $password;
 
   private function save() {
-    // update
+    $dbHandler = DBHandler::getInstance();
+
+    $statement = "UPDATE fundit_user SET name={$name}, roles={$roles}, email={$email}, password={$password} WHERE id={$id}";
+    $dbHandler->execute($statement, false);
   }
 
   private function fetchContribution() {
-    //fetch from databse
+    $dbHandler = DBHandler::getInstance();
+
+    $statement = "SELECT * FROM fundit_contribution WHERE contributor_id = {$id}";
+    $result = $dbHandler->execute($statement, true);
   }
 
-  public function __construct($name, $roles, $email, $password) {
+  public static function createNewUser($name, $roles, $email, $password) {
+    $dbHandler = DBHandler::getInstance();
+
+    $statement = "INSERT INTO fundit_user (name, roles, email, password) VALUES ({$name}, {$roles}, {$email}, {$password})";
+    $dbHandler->execute($statement, false);
+
+    $statement = "SELECT fundit_user_seq.CURRVAL FROM dual";
+    $result = $dbHandler->execute($statement, true);
+
+    $id = int($result['CURRVAL']);
+    return new User($id, $name, $roles, $email, $password);
+  }
+
+  private function __construct($id, $name, $roles, $email, $password) {
+    $this->id = $id;
     $this->name = $name;
     $this->roles = $roles;
     $this->email = $email;
     $this->password = $password;
-    // create on database, fill id
   }
 
   public function getName($name) {
@@ -57,15 +77,20 @@ class User {
   }
 
   public static function getUser($id) {
-    // select this user, return user object
+    $dbHandler = DBHandler::getInstance();
+
+    $statement = "SELECT * FROM fundit_user WHERE id = {$id}";
+    $result = $dbHandler->execute($statement, true);
+
+    return new User($result->id, $result->name, $result->roles,
+      $result->email, $result->password);
   }
 
   public function getContribution() {
     $contributions = fetchConstribution();
-    $contributionsLength = count($contributions);
     $totalContribution = 0;
-    for ($i = 0; $i < $contributionsLength; $i++) {
-      $totalContribution += $contributions[$i]->getAmount();
+    foreach ($contributions as $contribution) {
+      $totalContributions += $contribution['amount'];
     }
     return $totalContributions;
   }
