@@ -2,7 +2,7 @@
 include_once __DIR__ . '/../config.php';
 
 class DBHandler {
-  private $dbh;
+  public $dbh;
 
   public function __construct() {
     global $config;
@@ -28,7 +28,7 @@ class DBHandler {
 
   public static function execute($query, $needResult) {
     $instance = new DBHandler();
-    $stid = oci_parse($this->dbh, $query);
+    $stid = oci_parse($instance->dbh, $query);
     oci_execute($stid);
     if ($needResult) {
       $result = array();
