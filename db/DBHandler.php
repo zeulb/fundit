@@ -33,7 +33,7 @@ class DBHandler {
     if ($needResult) {
       $result = array();
       while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
-        array_push($result, $row);
+        $result[] = $row;
       }
       return $result;
     }
