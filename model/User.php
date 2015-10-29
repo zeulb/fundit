@@ -23,16 +23,12 @@ class User {
     $result = $dbHandler->execute($statement, true);
   }
 
-  public static function createNewUser($name, $roles, $email, $password) {
+  public static function createNewUser($username, $name, $roles, $email, $password) {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "INSERT INTO fundit_user (name, roles, email, password) VALUES ({$name}, {$roles}, {$email}, {$password})";
+    $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ({$username}, {$name}, {$roles}, {$email}, {$password})";
     $dbHandler->execute($statement, false);
 
-    $statement = "SELECT fundit_user_seq.CURRVAL FROM dual";
-    $result = $dbHandler->execute($statement, true);
-
-    $username = int($result['CURRVAL']);
     return new User($username, $name, $roles, $email, $password);
   }
 

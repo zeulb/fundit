@@ -15,7 +15,7 @@ class Roles {
 
     $users = array();
     foreach ($result as $res) {
-      $users[] = new User($res['id'], $res['name'], $res['roles'], $res['email'], $res['password']);
+      $users[] = new User($res['USERNAME'], $res['NAME'], $res['ROLES'], $res['EMAIL'], $res['PASSWORD']);
     }
 
     return $users;
