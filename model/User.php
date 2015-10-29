@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . 'Contribution.php';
+include_once __DIR__ . '/Contribution.php';
 include_once __DIR__ . '/../db/DBHandler.php';
 
 class User {
