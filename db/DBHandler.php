@@ -3,7 +3,6 @@ include_once __DIR__ . '/../config.php';
 
 class DBHandler {
   private $dbh;
-  private static $instance = null;
 
   public function __construct() {
     global $config;
@@ -23,11 +22,12 @@ class DBHandler {
     }
   }
 
-  public function __destruct() {
+  public function close() {
     oci_close($this->dbh);
   }
 
-  public function execute($query, $needResult) {
+  public static function execute($query, $needResult) {
+    $instance = new DBHandler();
     $stid = oci_parse($this->dbh, $query);
     oci_execute($stid);
     if ($needResult) {
@@ -35,20 +35,13 @@ class DBHandler {
       while (($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         $result[] = $row;
       }
-      oci_close($this->dbh);
-      unset(static::$instance);
+      $instance->close();
+      unset($instance);
       return $result;
     } else {
-      oci_close($this->dbh);
-      unset(static::$instance);
+      $instance->close();
+      unset($instance);
     }
-  }
-
-  public static function getInstance() {
-    if (static::$instance === null) {
-      static::$instance = new DBHandler();
-    }
-    return static::$instance;
   }
 
 }
