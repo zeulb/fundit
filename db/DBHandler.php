@@ -7,7 +7,7 @@ class DBHandler {
 
   public function __construct() {
     global $config;
-    putenv('ORACLE_HOME=instantclient,/usr/local/bin');
+    putenv("ORACLE_HOME={$config['ORACLE_HOME']}");
     $this->dbh = ocilogon($config['username'], $config['password'], " (DESCRIPTION =
       (ADDRESS_LIST =
         (ADDRESS = (PROTOCOL = TCP)(HOST = " . $config['host'] . ")(PORT = " . $config['port'] . "))
