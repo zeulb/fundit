@@ -31,7 +31,7 @@ class DBHandler {
     $stid = oci_parse($instance->dbh, $query);
     $r;
     try {
-      $r = oci_execute($stid);
+      $r = @oci_execute($stid);
     } catch (Exception $e) {
       //do nothing
     }

@@ -56,32 +56,33 @@
                   $password = $_POST["password"];
                   $verify_password = $_POST["verify_password"];
                   if ($password !== $verify_password) {
-                    echo "Password lu beda cok";
+                    $message = "Password doesn't match";
+                    $type = "danger";
                   } else {
-                    echo "yey2";
+                    $message = "User created";
+                    $type = "success";
                     $user = User::createNewUser($username, $fullname,
                       $roles, $email, $password);
 
                     if (isset($user)) {
-                      echo $user->getName()."<br/>";
-                      echo $user->getRoles()."<br/>";
-                      echo $user->getEmail()."<br/>";
-                      echo $user->getUsername()."<br/>";
+                      unset($fullname);
+                      unset($roles);
+                      unset($username);
+                      unset($email);
                     } else {
-                      $message = "ngaco";
-                      echo "ngaco ";
+                      $message = "Username or email already exists";
+                      $type = "danger";
                     }
-                    echo "yey";
                   }
                 }
 
                 if (isset($message)) {
                   ?>
                   <div class="container">
-                    <div class="alert alert-warning">
+                    <div class="alert alert-<?php echo $type ?>" >
                       <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        File not found
-                  </div>;
+                        <?php echo $message ?>
+                  </div>
                   <?php
                 }
 
@@ -89,22 +90,22 @@
               <form method="post" class="form" role="form">
                 <div class="form-group ">
                   <label class="control-label" for="fullname">Full Name</label>
-                  <input class="form-control" id="fullname" name="fullname" required type="text" value="">
+                  <input class="form-control" id="fullname" name="fullname" required type="text" value="<?php echo $fullname ?>">
                 </div>
                 <div class="form-group">
                   <label for="roles">Roles</label>
-                  <select class="form-control" id="roles" name="roles">
+                  <select class="form-control" id="roles" name="roles" value="<?php echo $roles ?>">
                     <option value="creator">Creator</option>
                     <option value="contributor">Contributor</option>
                   </select>
                 </div>
                 <div class="form-group ">
                   <label class="control-label" for="username">Username</label>
-                  <input class="form-control" id="username" name="username" required type="text" value="">
+                  <input class="form-control" id="username" name="username" required type="text" value="<?php echo $username ?>">
                 </div>
                 <div class="form-group ">
                   <label class="control-label" for="email">Email</label>
-                  <input class="form-control" id="email" name="email" required type="text" value="">
+                  <input class="form-control" id="email" name="email" required type="text" value="<?php echo $email ?>">
                 </div>
                 <div class="form-group ">
                   <label class="control-label" for="password">Password</label>
