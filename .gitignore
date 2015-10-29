@@ -1,2 +1,4 @@
 test/*
 .DS_Store
+test.php
+config.php
