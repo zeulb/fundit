@@ -3,9 +3,9 @@ include_once __DIR__ . '/../config.php';
 
 class DBHandler {
   private $dbh;
-  private $instance;
+  private static $instance = null;
 
-  private function __construct() {
+  public function __construct() {
     global $config;
     putenv('ORACLE_HOME=instantclient,/usr/local/bin');
     $this->dbh = ocilogon($config['username'], $config['password'], " (DESCRIPTION =
@@ -23,7 +23,7 @@ class DBHandler {
     }
   }
 
-  private function __destruct() {
+  public function __destruct() {
     oci_close($this->dbh);
   }
 
@@ -40,10 +40,10 @@ class DBHandler {
   }
 
   public static function getInstance() {
-    if (!isset($this->instance)) {
-      $this->instance = new DBHandler();
+    if (static::$instance === null) {
+      static::$instance = new DBHandler();
     }
-    return $this->instance;
+    return static::$instance;
   }
 
 }

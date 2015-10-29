@@ -12,13 +12,15 @@ class Project {
     // update to db
   }
 
-  public function __constructor($owner_id, $title, $description, $goal, $endTime) {
+  public static function createNewUser($owner_id, $title, $description, $goal, $endTime
+
+  public function __constructor($id, $owner_id, $title, $description, $goal, $endTime) {
+    $this->id = $id;
     $this->owner_id = $owner_id;
     $this->title = $title;
     $this->description = $description;
     $this->goal = $goal;
     $this->endTime = $endTime;
-    // create on database, fill id
   }
 
   public function getId() {
