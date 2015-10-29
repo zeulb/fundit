@@ -44,6 +44,15 @@
           <br/>
           <div class="inner cover container">
             <div class="row">
+
+              <?php
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                  echo "POST COK";
+              ?>
+              
+              <?php
+                } else {
+              ?>
               <form method="post" class="form" role="form">
                 <div class="form-group ">
                   <label class="control-label" for="username">Username</label>
@@ -55,6 +64,9 @@
                 </div>
                 <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
               </form>
+              <?php
+                }
+              ?>
               <br/>
               <p>Want to sign up ? Click <a href="signup.php"> here </a></p>
             </div>

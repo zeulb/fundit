@@ -44,6 +44,30 @@
           <br/>
           <div class="inner cover container">
             <div class="row">
+
+              <?php
+
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                  include_once("model/User.php");
+                  $fullname = $_POST["fullname"];
+                  $roles = $_POST["roles"];
+                  $username = $_POST["username"];
+                  $email = $_POST["email"];
+                  $password = $_POST["password"];
+                  $verify_password = $_POST["verify_password"];
+                  if ($password !== $verify_password) {
+                    echo "Password lu beda cok";
+                  } else {
+                    $user = User::createNewUser($username, $fullname,
+                      $roles, $email, $password);
+                    echo $user;
+                    echo "yey";
+                  }
+              ?>
+
+              <?php
+                } else {
+              ?>
               <form method="post" class="form" role="form">
                 <div class="form-group ">
                   <label class="control-label" for="fullname">Full Name</label>
@@ -51,9 +75,9 @@
                 </div>
                 <div class="form-group">
                   <label for="roles">Roles</label>
-                  <select class="form-control" id="roles">
-                    <option>Creator</option>
-                    <option>Contributor</option>
+                  <select class="form-control" id="roles" name="roles">
+                    <option value="creator">Creator</option>
+                    <option value="contributor">Contributor</option>
                   </select>
                 </div>
                 <div class="form-group ">
@@ -69,12 +93,15 @@
                   <input class="form-control" id="password" name="password" required type="password" value="">
                 </div>
                 <div class="form-group ">
-                  <label class="control-label" for="password">Verify Password</label>
-                  <input class="form-control" id="password" name="password" required type="password" value="">
+                  <label class="control-label" for="verify_password">Verify Password</label>
+                  <input class="form-control" id="verify_password" name="verify_password" required type="password" value="">
                 </div>
                 <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
               </form>
               <br/>
+              <?php
+                }
+              ?>
             </div>
             
           </div>
