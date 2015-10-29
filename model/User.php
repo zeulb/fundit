@@ -40,7 +40,11 @@ class User {
     $this->password = $password;
   }
 
-  public function getName($name) {
+  public function getUsername() {
+    return $this->username;
+  }
+
+  public function getName() {
     return $this->name;
   }
 
@@ -49,7 +53,7 @@ class User {
     return $this->save();
   }
 
-  public function getRoles($roles) {
+  public function getRoles() {
     return $this->roles;
   }
 
@@ -58,7 +62,7 @@ class User {
     return $this->save();
   }
 
-  public function getEmail($email) {
+  public function getEmail() {
     return $this->email;
   }
 
