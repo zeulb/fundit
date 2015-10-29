@@ -24,6 +24,7 @@ class User {
   }
 
   public static function createNewUser($username, $name, $roles, $email, $password) {
+    $password = md5($password);
     $dbHandler = DBHandler::getInstance();
 
     $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ('{$username}', '{$name}', '{$roles}', '{$email}', '{$password}')";
@@ -93,6 +94,11 @@ class User {
       $totalContributions += $contribution['AMOUNT'];
     }
     return $totalContributions;
+  }
+
+  public function verifyPassword($guess) {
+    $guess = md5($guess);
+    return $this->password == $guess;
   }
 }
 ?>
