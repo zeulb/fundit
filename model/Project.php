@@ -1,5 +1,5 @@
 <?php
-include "../db/DBHandler.php";
+include __DIR__ . '/../db/DBHandler.php';
 
 class Project {
   private $id;
