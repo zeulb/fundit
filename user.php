@@ -12,7 +12,6 @@
 
     <!-- Custom styles for this template -->
     <link href="css/cover.css" rel="stylesheet">
-    <link href="css/vertical.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,23 +32,38 @@
               <h3 class="masthead-brand">FundIt</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="index.php">Home</a></li>
+                  <li><a href="index.php">Home</a></li>
                   <li><a href="project.php">Projects</a></li>
-                  <li><a href="user.php">Contributors</a></li>
+                  <li class="active"><a href="user.php">Contributors</a></li>
                   <li><a href="signin.php">Sign In</a></li>
                   <li><a href="signup.php">Sign Up</a></li>
                 </ul>
               </nav>
             </div>
           </div>
+          <br/>
+          <div class="inner cover container">
+            <div class="row">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Total Contribution</th>
+                  </tr>
+                </thead>
 
-          <div class="inner cover">
-            <h1 class="cover-heading">Welcome to FundIt</h1>
-            <p class="lead">Crowdfunding site</p>
-            <p class="lead">
-              <a href="#" class="btn btn-lg btn-default">Learn more</a>
-            </p>
+                <tbody>
+                  <tr>
+                    <td align="left">1</td>
+                    <td align="left">Budi Anduk</td>
+                    <td align="left">$130303.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
+
 
           <div class="mastfoot">
             <div class="inner">
