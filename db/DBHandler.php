@@ -38,6 +38,9 @@ class DBHandler {
       oci_close($this->dbh);
       unset(static::$instance);
       return $result;
+    } else {
+      oci_close($this->dbh);
+      unset(static::$instance);
     }
   }
 
