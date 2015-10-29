@@ -12,7 +12,7 @@ class User {
   private function save() {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "UPDATE fundit_user SET name={$name}, roles={$roles}, email={$email}, password={$password} WHERE username={$username}";
+    $statement = "UPDATE fundit_user SET name={$this->name}, roles={$this->roles}, email={$this->email}, password={$this->password} WHERE username={$this->username}";
     $dbHandler->execute($statement, false);
   }
 
@@ -86,7 +86,7 @@ class User {
     $contributions = fetchConstribution();
     $totalContribution = 0;
     foreach ($contributions as $contribution) {
-      $totalContributions += $contribution['amount'];
+      $totalContributions += $contribution['AMOUNT'];
     }
     return $totalContributions;
   }

@@ -3,14 +3,14 @@
 include_once "../db/DBHandler.php";
 
 class Roles {
-  public static $ADMIN = "admin";
-  public static $CREATOR = "creator";
-  public static $CONTRIBUTOR = "contributor";
+  public static $ADMIN = "Admin";
+  public static $CREATOR = "Creator";
+  public static $CONTRIBUTOR = "Contributor";
 
   public static function getUserList($roles) {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "SELECT * FROM fundit_user WHERE roles={$roles}";
+    $statement = "SELECT * FROM fundit_user WHERE roles={$this->roles}";
     $result = $dbHandler->execute($statement, true);
 
     $users = array();
