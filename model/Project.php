@@ -12,19 +12,22 @@ class Project {
   private function save() {
 
     $statement = "UPDATE fundit_project SET ownerUsername={$this->ownerUsername}, title={$this->title}, description={$this->description}, goal={$this->goal}, deadline={$this->deadline} WHERE id={$this->id}";
-    DBHandler::execute($statement, false);
+    return DBHandler::execute($statement, false);
   }
 
   public static function createNewProject($ownerUsername, $title, $description, $goal, $deadline) {
 
     $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES('{$this->ownerUsername}', '{$this->title}', '{$this->description}', '{$this->goal}', '{$this->deadline}')";
-    DBHandler::execute($statement, false);
+    $r = DBHandler::execute($statement, false);
+    if (!$r) {
+      return null;
+    } else {
+      $statement = "SELECT fundit_project_seq.CURRVAL FROM dual";
+      $result = DBHandler::execute($statement, true);
+      $id = intval($result['CURRVAL']);
 
-    $statement = "SELECT fundit_project_seq.CURRVAL FROM dual";
-    $result = DBHandler::execute($statement, true);
-    $id = intval($result['CURRVAL']);
-
-    return new Project($id, $ownerUsername, $title, $description, $goal, $deadline);
+      return new Project($id, $ownerUsername, $title, $description, $goal, $deadline);
+    }
   }
 
   public function __constructor($id, $ownerUsername, $title, $description, $goal, $deadline) {

@@ -12,22 +12,27 @@ class User {
   private function save() {
 
     $statement = "UPDATE fundit_user SET name='{$this->name}', roles='{$this->roles}', email='{$this->email}', password='{$this->password}' WHERE username='{$this->username}'";
-    DBHandler::execute($statement, false);
+    return DBHandler::execute($statement, false);
   }
 
   private function fetchContribution() {
 
     $statement = "SELECT * FROM fundit_contribution WHERE contributor_username = '{$username}'";
     $result = DBHandler::execute($statement, true);
+    return $result;
   }
 
   public static function createNewUser($username, $name, $roles, $email, $password) {
     $password = md5($password);
 
     $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ('{$username}', '{$name}', '{$roles}', '{$email}', '{$password}')";
-    DBHandler::execute($statement, false);
+    $r = DBHandler::execute($statement, false);
 
-    return new User($username, $name, $roles, $email, $password);
+    if ($r) {
+      return new User($username, $name, $roles, $email, $password);
+    } else {
+      return null;
+    }
   }
 
   public function __construct($username, $name, $roles, $email, $password) {

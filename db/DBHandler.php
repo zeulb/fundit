@@ -52,6 +52,7 @@ class DBHandler {
     } else {
       $instance->close();
       unset($instance);
+      return $r;
     }
   }
 
