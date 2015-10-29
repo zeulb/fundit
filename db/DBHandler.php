@@ -36,7 +36,7 @@ class DBHandler {
         $result[] = $row;
       }
       oci_close($this->dbh);
-      unset($static::instance);
+      unset(static::$instance);
       return $result;
     }
   }
