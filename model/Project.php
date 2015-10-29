@@ -10,20 +10,18 @@ class Project {
   private $deadline;
 
   private function save() {
-    $dbHandler = DBHandler::getInstance();
 
     $statement = "UPDATE fundit_project SET ownerUsername={$this->ownerUsername}, title={$this->title}, description={$this->description}, goal={$this->goal}, deadline={$this->deadline} WHERE id={$this->id}";
-    $dbHandler->execute($statement, false);
+    DBHandler::execute($statement, false);
   }
 
   public static function createNewProject($ownerUsername, $title, $description, $goal, $deadline) {
-    $dbHandler = DBHandler::getInstance();
 
     $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES('{$this->ownerUsername}', '{$this->title}', '{$this->description}', '{$this->goal}', '{$this->deadline}')";
-    $dbHandler->execute($statement, false);
+    DBHandler::execute($statement, false);
 
     $statement = "SELECT fundit_project_seq.CURRVAL FROM dual";
-    $result = $dbHandler->execute($statement, true);
+    $result = DBHandler::execute($statement, true);
     $id = intval($result['CURRVAL']);
 
     return new Project($id, $ownerUsername, $title, $description, $goal, $deadline);
@@ -83,7 +81,6 @@ class Project {
   }
 
   public function getContributionList() {
-    $dbHandler = DBHandler::getInstance();
 
     $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id}";
   }
