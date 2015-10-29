@@ -36,7 +36,7 @@ class User {
     return new User($id, $name, $roles, $email, $password);
   }
 
-  private function __construct($id, $name, $roles, $email, $password) {
+  public function __construct($id, $name, $roles, $email, $password) {
     $this->id = $id;
     $this->name = $name;
     $this->roles = $roles;
