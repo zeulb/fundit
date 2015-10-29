@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>FundIt!</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/cover.css" rel="stylesheet">
+    <link href="css/vertical.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,8 +33,8 @@
               <h3 class="masthead-brand">FundIt</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">Projects</a></li>
+                  <li class="active"><a href="index.php">Home</a></li>
+                  <li><a href="project.php">Projects</a></li>
                   <li><a href="#">Contributors</a></li>
                   <li><a href="#">Sign In</a></li>
                 </ul>
@@ -51,7 +52,7 @@
 
           <div class="mastfoot">
             <div class="inner">
-              <p>Yo</p>
+              <p>&copy Fundit 2015</p>
             </div>
           </div>
 

@@ -32,7 +32,7 @@ body {
 body {
   color: #fff;
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+  /*text-shadow: 0 1px 3px rgba(0,0,0,.5);*/
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -133,24 +133,17 @@ body {
  */
 
 @media (min-width: 768px) {
-  /* Pull out the header and footer */
   .masthead {
-    position: fixed;
     top: 0;
   }
   .mastfoot {
-    position: fixed;
     bottom: 0;
-  }
-  /* Start the vertical centering */
-  .site-wrapper-inner {
-    vertical-align: middle;
   }
   /* Handle the widths */
   .masthead,
   .mastfoot,
   .cover-container {
-    width: 100%; /* Must be percentage or pixels for horizontal alignment */
+    width: 80%; /* Must be percentage or pixels for horizontal alignment */
   }
 }
 
@@ -158,6 +151,26 @@ body {
   .masthead,
   .mastfoot,
   .cover-container {
-    width: 700px;
+    margin: auto;
+    width: 80%;
   }
+}
+
+.row {
+  margin: auto;
+  width: 100%;
+  color: #333;
+  padding: 2px 10px 2px 10px;
+}
+
+.container {
+  width: 75%;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 30px 50px 30px 50px;
+  margin: auto;
+}
+
+button {
+  text-align: right;
 }
