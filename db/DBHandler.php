@@ -32,9 +32,11 @@ class DBHandler {
     oci_execute($stid);
     if ($needResult) {
       $result = array();
-      while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
+      while (($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         $result[] = $row;
       }
+      oci_close($this->dbh);
+      unset($static::instance);
       return $result;
     }
   }
