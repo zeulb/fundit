@@ -1,5 +1,7 @@
 <?php
 
+include_once "../db/DBHandler.php";
+
 class Roles {
   public static $ADMIN = "admin";
   public static $CREATOR = "creator";

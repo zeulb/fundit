@@ -1,13 +1,16 @@
 <?php
+
+include_once "../db/DBHandler.php";
+
 class Contribution {
   private $id;
-  private $contributorId;
+  private $contributorUsername;
   private $projectId;
   private $date;
   private $amount;
 
-  public function __construct($contributorId, $projectId, $amount) {
-    $this->contributorId = $contributorId;
+  public function __construct($contributorUsername, $projectId, $amount) {
+    $this->contributorUsername = $contributorUsername;
     $this->projectId = $projectId;
     $this->amount = $amount;
     // create on database, fill id
@@ -18,7 +21,7 @@ class Contribution {
   }
 
   public function getContributorId() {
-    return $this->contributorId;
+    return $this->contributorUsername;
   }
 
   public function getProjectId() {

@@ -3,7 +3,7 @@ include_once "Contribution.php";
 include_once "../db/DBHandler.php";
 
 class User {
-  private $id;
+  private $username;
   private $name;
   private $roles;
   private $email;
@@ -12,14 +12,14 @@ class User {
   private function save() {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "UPDATE fundit_user SET name={$name}, roles={$roles}, email={$email}, password={$password} WHERE id={$id}";
+    $statement = "UPDATE fundit_user SET name={$name}, roles={$roles}, email={$email}, password={$password} WHERE username={$username}";
     $dbHandler->execute($statement, false);
   }
 
   private function fetchContribution() {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "SELECT * FROM fundit_contribution WHERE contributor_id = {$id}";
+    $statement = "SELECT * FROM fundit_contribution WHERE contributor_username = {$username}";
     $result = $dbHandler->execute($statement, true);
   }
 
@@ -32,12 +32,12 @@ class User {
     $statement = "SELECT fundit_user_seq.CURRVAL FROM dual";
     $result = $dbHandler->execute($statement, true);
 
-    $id = int($result['CURRVAL']);
-    return new User($id, $name, $roles, $email, $password);
+    $username = int($result['CURRVAL']);
+    return new User($username, $name, $roles, $email, $password);
   }
 
-  public function __construct($id, $name, $roles, $email, $password) {
-    $this->id = $id;
+  public function __construct($username, $name, $roles, $email, $password) {
+    $this->username = $username;
     $this->name = $name;
     $this->roles = $roles;
     $this->email = $email;
@@ -76,13 +76,13 @@ class User {
     return $this->save();
   }
 
-  public static function getUser($id) {
+  public static function getUser($username) {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "SELECT * FROM fundit_user WHERE id = {$id}";
+    $statement = "SELECT * FROM fundit_user WHERE username = {$username}";
     $result = $dbHandler->execute($statement, true);
 
-    return new User($result->id, $result->name, $result->roles,
+    return new User($result->username, $result->name, $result->roles,
       $result->email, $result->password);
   }
 

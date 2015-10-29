@@ -1,8 +1,9 @@
 <?php
+include "../db/DBHandler.php";
 
 class Project {
   private $id;
-  private $owner_id;
+  private $ownerUsername;
   private $title;
   private $description;
   private $goal;
@@ -11,26 +12,26 @@ class Project {
   private function save() {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "UPDATE fundit_project SET owner_id={$owner_id}, title={$title}, description={$description}, goal={$goal}, deadline={$deadline} WHERE id={$id}";
+    $statement = "UPDATE fundit_project SET ownerUsername={$ownerUsername}, title={$title}, description={$description}, goal={$goal}, deadline={$deadline} WHERE id={$id}";
     $dbHandler->execute($statement, false);
   }
 
-  public static function createNewUser($owner_id, $title, $description, $goal, $deadline) {
+  public static function createNewProject($ownerUsername, $title, $description, $goal, $deadline) {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "INSERT INTO fundit_project (owner_id, title, description, goal, deadline) VALUES({$owner_id}, {$title}, {$description}, {$goal}, {$deadline})";
+    $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES({$ownerUsername}, {$title}, {$description}, {$goal}, {$deadline})";
     $dbHandler->execute($statement, false);
 
     $statement = "SELECT fundit_project_seq.CURRVAL FROM dual";
     $result = $dbHandler->execute($statement, true);
     $id = $result['CURRVAL'];
 
-    return new Project($id, $owner_id, $title, $description, $goal, $deadline);
+    return new Project($id, $ownerUsername, $title, $description, $goal, $deadline);
   }
 
-  public function __constructor($id, $owner_id, $title, $description, $goal, $deadline) {
+  public function __constructor($id, $ownerUsername, $title, $description, $goal, $deadline) {
     $this->id = $id;
-    $this->owner_id = $owner_id;
+    $this->ownerUsername = $ownerUsername;
     $this->title = $title;
     $this->description = $description;
     $this->goal = $goal;
@@ -42,7 +43,7 @@ class Project {
   }
 
   public function getOwnerId() {
-    return $this->owner_id;
+    return $this->ownerUsername;
   }
 
   public function getTitle() {
@@ -92,7 +93,7 @@ class Project {
   public static function getProject($id) {
     // select this project, return project object
   }
-  
+
 }
 
 ?>
