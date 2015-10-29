@@ -12,21 +12,21 @@ class User {
   private function save() {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "UPDATE fundit_user SET name={$this->name}, roles={$this->roles}, email={$this->email}, password={$this->password} WHERE username={$this->username}";
+    $statement = "UPDATE fundit_user SET name='{$this->name}', roles='{$this->roles}', email='{$this->email}', password='{$this->password}' WHERE username='{$this->username}'";
     $dbHandler->execute($statement, false);
   }
 
   private function fetchContribution() {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "SELECT * FROM fundit_contribution WHERE contributor_username = {$username}";
+    $statement = "SELECT * FROM fundit_contribution WHERE contributor_username = '{$username}'";
     $result = $dbHandler->execute($statement, true);
   }
 
   public static function createNewUser($username, $name, $roles, $email, $password) {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ({$username}, {$name}, {$roles}, {$email}, {$password})";
+    $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ('{$username}', '{$name}', '{$roles}', '{$email}', '{$password}')";
     $dbHandler->execute($statement, false);
 
     return new User($username, $name, $roles, $email, $password);
@@ -75,7 +75,7 @@ class User {
   public static function getUser($username) {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "SELECT * FROM fundit_user WHERE username = {$username}";
+    $statement = "SELECT * FROM fundit_user WHERE username = '{$username}'";
     $result = $dbHandler->execute($statement, true);
 
     return new User($result->username, $result->name, $result->roles,

@@ -19,12 +19,12 @@ class Project {
   public static function createNewProject($ownerUsername, $title, $description, $goal, $deadline) {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES({$this->ownerUsername}, {$this->title}, {$this->description}, {$this->goal}, {$this->deadline})";
+    $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES('{$this->ownerUsername}', '{$this->title}', '{$this->description}', '{$this->goal}', '{$this->deadline}')";
     $dbHandler->execute($statement, false);
 
     $statement = "SELECT fundit_project_seq.CURRVAL FROM dual";
     $result = $dbHandler->execute($statement, true);
-    $id = $result['CURRVAL'];
+    $id = intval($result['CURRVAL']);
 
     return new Project($id, $ownerUsername, $title, $description, $goal, $deadline);
   }
