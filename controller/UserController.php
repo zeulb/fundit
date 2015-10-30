@@ -1,7 +1,8 @@
 <?php
-include_once __DIR__ . '/../model/User.php';
-
 namespace UserController {
+
+include_once __DIR__ . '/../db/DBHandler.php';
+include_once __DIR__ . '/../model/User.php';
 
 function signIn($username, $password) {
   $user = getUser($username);
@@ -38,10 +39,10 @@ function createNewUser($username, $name, $roles, $email, $password) {
   $password = md5($password);
 
   $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ('{$username}', '{$name}', '{$roles}', '{$email}', '{$password}')";
-  $r = DBHandler::execute($statement, false);
+  $r = \DBHandler::execute($statement, false);
 
   if ($r) {
-    return new User($username, $name, $roles, $email, $password);
+    return new \User($username, $name, $roles, $email, $password);
   } else {
     return null;
   }
@@ -49,13 +50,13 @@ function createNewUser($username, $name, $roles, $email, $password) {
 
 function getUser($username) {
   $statement = "SELECT * FROM fundit_user WHERE username = '{$username}'";
-  $result = DBHandler::execute($statement, true);
+  $result = \DBHandler::execute($statement, true);
 
   if (count($result) != 1) {
     return null;
   } else {
     $result = $result[0];
-    return new User($result['USERNAME'], $result['NAME'], $result['ROLES'],
+    return new \User($result['USERNAME'], $result['NAME'], $result['ROLES'],
       $result['EMAIL'], $result['PASSWORD']);
   }
 }

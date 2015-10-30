@@ -11,7 +11,7 @@
     $password = $_POST["password"];
 
     include_once 'controller/UserController.php';
-    if (signIn($username, $password)) {
+    if (UserController\signIn($username, $password)) {
       header("Location: index.php");
     } else {
       $message = "Wrong username or password";
