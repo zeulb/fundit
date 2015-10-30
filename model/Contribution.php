@@ -9,11 +9,17 @@ class Contribution {
   private $date;
   private $amount;
 
+  private function addToDatabase() {
+    $statement = "INSERT INTO fundit_contribution (contributorUsername, projectId, data, amount) VALUES ('{$contributorUsername}', '{$projectId}', '{$projectId}', '{$date}', '{$amount}')";
+
+    return DBHandler::execute($statement, false);
+  }
+
   public function __construct($contributorUsername, $projectId, $amount) {
     $this->contributorUsername = $contributorUsername;
     $this->projectId = $projectId;
     $this->amount = $amount;
-    // create on database, fill id
+    $this->addToDatabase();
   }
 
   public function getId() {

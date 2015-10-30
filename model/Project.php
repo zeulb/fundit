@@ -1,5 +1,6 @@
 <?php
-include __DIR__ . '/../db/DBHandler.php';
+include_once __DIR__ . '/../db/DBHandler.php';
+include_once __DIR__ . '/contribution.php';
 
 class Project {
   private $id;
@@ -23,7 +24,7 @@ class Project {
       return null;
     } else {
       $statement = "SELECT fundit_project_seq.CURRVAL FROM dual";
-      $result = DBHandler::execute($statement, true);
+      $result = DBHandler::execute($statement, true)[0];
       $id = intval($result['CURRVAL']);
 
       return new Project($id, $ownerUsername, $title, $description, $goal, $deadline);
@@ -84,16 +85,42 @@ class Project {
   }
 
   public function getContributionList() {
-
     $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id}";
+
+    $result = DBHandler::execute($statement, true);
+
+    $result = array()
+    foreach ($result as $res) {
+      $result[] = new Contribution($res['ID'], $res['CONTRIBUTORUSERNAME'], $res['PROJECTID'], $res['DATE'], $res['AMOUNT']);
+    }
+
+    return $result;
   }
 
   public function getTotalContribution() {
-    
+    $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id}";
+
+    $result = DBHandler::execute($statement, true);
+
+    $totalContribution = 0.0;
+    foreach ($result as $res) {
+      $totalContribution += floatval($res['AMOUNT']);
+    }
+
+    return $totalContribution;
   }
 
   public static function getProject($id) {
-    // select this project, return project object
+    $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id}";
+
+    $result = DBHandler::execute($statement, true);
+
+    if (count($result) != 1) {
+      return null;
+    } else {
+      $result = $result[0];
+      return new Project($result['ID'], $result['OWNERUSERNAME'], $result['TITLE'], $result['DESCRIPTION'], $result['GOAL'], $result['DEADLINE']);
+    }
   }
 
 }

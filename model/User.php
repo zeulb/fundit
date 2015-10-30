@@ -103,10 +103,7 @@ class User {
   }
 
   public function verifyPassword($guess) {
-    echo "GUESS = {$guess} <br />";
     $guess = md5($guess);
-    echo "PASSWORD_HASH = {$this->password} <br />";
-    echo "GUESS_HASH = {$guess} <br />";
     return $this->password == $guess;
   }
 }
