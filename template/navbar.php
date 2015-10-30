@@ -16,7 +16,6 @@
       <ul class="nav masthead-nav">
         <li class="<?php echo isActive('Home'); ?>"><a href="index.php">Home</a></li>
         <li class="<?php echo isActive('Projects'); ?>"><a href="project.php">Projects</a></li>
-        <li class="<?php echo isActive('Contributors'); ?>"><a href="user.php">Contributors</a></li>
         <?php
           if (isset($_SESSION["username"])) {
             ?>

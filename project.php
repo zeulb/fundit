@@ -1,6 +1,6 @@
 <?php
   session_start();
-  $current_page = 'Project';
+  $current_page = 'Projects';
   include_once "controller/UserController.php";
   include_once "controller/ProjectController.php";
 ?>
@@ -19,9 +19,11 @@
       <div class="col-md-6">
         <h4 class = "text-left"> <?php echo $project->getTitle(); ?> </h4>
         <p class = "text-left">
-        by <?php 
+        by <a href="user.php?name=<?php echo $project->getOwner(); ?>">
+        <?php
         $username = $project->getOwner();
         echo UserController\getUser($username)->getName() ?>
+        </a>
         ·
         <?php echo $project->getContributorCount(); ?> funders
         </p>

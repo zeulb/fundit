@@ -175,6 +175,11 @@ button {
   text-align: right;
 }
 
-body > div > div > div > div.inner.cover.container > div > p > a {
-  color: blue;
+
+.container a {
+  color: #337ab7;
+}
+
+.table th, .table td { 
+     border-top: none !important; 
 }
