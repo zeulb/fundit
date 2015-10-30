@@ -5,6 +5,8 @@ include_once __DIR__ . '../model/Contribution.php';
 include_once __DIR__ . '../db/DBHandler.php';
 
 function createNewContribution($projectId, $amount) {
+  date_default_timezone_set("Asia/Singapore");
+
   $contributorUsername = $_SESSION['username'];
   $contributionDate = date("Y-m-d H:i:s");
   $amount = floatval($amount);
