@@ -1,5 +1,9 @@
 <?php
   session_start();
+
+  if (isset($_SESSION["username"])) {
+    header("Location: index.php");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +46,7 @@
                     if (isset($_SESSION["username"])) {
                       ?>
                       <li><a href="profile.php">Welcome, <?php echo $_SESSION["username"]; ?></a></li>
+                      <li><a href="signout.php">Sign Out</a></li>
                       <?php
                     } else {
                       ?>
