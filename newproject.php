@@ -1,5 +1,6 @@
 <?php
   session_start();
+  date_default_timezone_set("Asia/Singapore");
   $current_page = 'Projects';
   include_once("controller/UserController.php");
   include_once("controller/ProjectController.php");
@@ -14,7 +15,8 @@
     $goal = $_POST["goal"];
     $deadline = $_POST["deadline"];
     if (ProjectController\createNewProject($title, $description, $goal, $deadline)) {
-      header("Location: project.php");
+      $message = "New project added";
+      $message_type = "success";
     } else {
       $message = "Invalid date time format";
       $message_type = "danger";
@@ -40,12 +42,13 @@
           <input class="form-control" id="description" name="description" required type="text" value="<?php echo $username ?>">
         </div>
         <div class="form-group">
-            <div class='input-group date' id='deadline' >
-                <input type='text' class="form-control" name="deadline" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
+          <label class="control-label" for="deadline">Deadline</label>
+          <div class='input-group date' id='deadline' >
+              <input type='text' class="form-control" name="deadline" />
+              <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+          </div>
         </div>
         <script type="text/javascript">
             $(function () {
@@ -54,12 +57,12 @@
         </script>
         
         <div class="form-group ">
-          <label class="control-label" for="email">Goal</label>
+          <label class="control-label" for="goal">Goal</label>
           <div class='input-group date' id='goal' >
               <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-dollar"></span>
+                  <span class="glyphicon glyphicon-usd"></span>
               </span>
-              <input type='text' class="form-control" name="Goal" />
+              <input type='text' class="form-control" name="goal" />
           </div>
         </div>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
