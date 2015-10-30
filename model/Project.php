@@ -73,7 +73,7 @@ class Project {
 
     $result = DBHandler::execute($statement, true);
 
-    $result = array()
+    $result = array();
     foreach ($result as $res) {
       $result[] = new Contribution($res['ID'], $res['CONTRIBUTORUSERNAME'], $res['PROJECTID'], $res['DATE'], $res['AMOUNT']);
     }
