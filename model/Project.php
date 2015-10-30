@@ -4,20 +4,20 @@ include_once __DIR__ . '/Contribution.php';
 
 class Project {
   private $id;
-  private $ownerUsername;
+  private $owner;
   private $title;
   private $description;
   private $goal;
   private $deadline;
 
   private function save() {
-    $statement = "UPDATE fundit_project SET ownerUsername='{$this->ownerUsername}', title='{$this->title}', description='{$this->description}', goal='{$this->goal}', deadline='{$this->deadline}' WHERE id='{$this->id}'";
+    $statement = "UPDATE fundit_project SET owner='{$this->owner}', title='{$this->title}', description='{$this->description}', goal='{$this->goal}', deadline='{$this->deadline}' WHERE id='{$this->id}'";
     return DBHandler::execute($statement, false);
   }
 
-  public function __constructor($id, $ownerUsername, $title, $description, $goal, $deadline) {
+  public function __constructor($id, $owner, $title, $description, $goal, $deadline) {
     $this->id = $id;
-    $this->ownerUsername = $ownerUsername;
+    $this->owner = $owner;
     $this->title = $title;
     $this->description = $description;
     $this->goal = $goal;
@@ -29,7 +29,7 @@ class Project {
   }
 
   public function getOwner() {
-    return $this->ownerUsername;
+    return $this->owner;
   }
 
   public function getTitle() {

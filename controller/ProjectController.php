@@ -28,7 +28,7 @@ function createNewProject($title, $description, $goal, $deadline) {
     $result = \DBHandler::execute($statement, true)[0];
     $id = intval($result['CURRVAL']);
 
-    return new \Project($id, $ownerUsername, $title, $description, $goal, $deadline);
+    return new \Project($id, $owner, $title, $description, $goal, $deadline);
   }
 }
 
