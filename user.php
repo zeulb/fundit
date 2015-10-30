@@ -3,7 +3,7 @@
   $current_page = 'Contributors';
 ?>
 
-<? ob_start(); ?>
+<?php ob_start(); ?>
   <br/>
   <div class="inner cover container">
     <div class="row">
@@ -26,7 +26,7 @@
       </table>
     </div>
   </div>
-<? 
+<?php
   $content = ob_get_clean();
   include_once 'template/skeleton.php';
 ?>
