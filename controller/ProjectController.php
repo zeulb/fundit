@@ -3,7 +3,7 @@ namespace ProjectController {
 
 include_once __DIR__ . '/../model/Project.php';
 
-public static function createNewProject($title, $description, $goal, $deadline) {
+function createNewProject($title, $description, $goal, $deadline) {
   date_default_timezone_set("Asia/Singapore");
 
   $ownerUsername = $_SESSION['username'];
