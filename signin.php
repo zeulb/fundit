@@ -77,7 +77,7 @@
             <div class="row">
 
               <?php
-                include_once 'message.php';
+                include_once 'template/message.php';
               ?>
               
               <form method="post" class="form" role="form">

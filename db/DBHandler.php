@@ -35,6 +35,9 @@ class DBHandler {
     } catch (Exception $e) {
       //do nothing
     }
+    $instance->close();
+    unset($instance);
+    return null;
     if ($needResult) {
       if (!$r) {
         $instance->close();

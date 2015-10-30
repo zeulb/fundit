@@ -4,6 +4,36 @@
   if (isset($_SESSION["username"])) {
     header("Location: index.php");
   }
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include_once("model/User.php");
+    $fullname = $_POST["fullname"];
+    $roles = $_POST["roles"];
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $verify_password = $_POST["verify_password"];
+    if ($password !== $verify_password) {
+      $message = "Password doesn't match";
+      $message_type = "danger";
+    } else {
+      $message = "User created";
+      $message_type = "success";
+
+      $user = User::createNewUser($username, $fullname,
+        $roles, $email, $password);
+
+      if (isset($user)) {
+        unset($fullname);
+        unset($roles);
+        unset($username);
+        unset($email);
+      } else {
+        $message = "Username or email already exists";
+        $message_type = "danger";
+      }
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,46 +94,7 @@
             <div class="row">
 
               <?php
-
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                  include_once("model/User.php");
-                  $fullname = $_POST["fullname"];
-                  $roles = $_POST["roles"];
-                  $username = $_POST["username"];
-                  $email = $_POST["email"];
-                  $password = $_POST["password"];
-                  $verify_password = $_POST["verify_password"];
-                  if ($password !== $verify_password) {
-                    $message = "Password doesn't match";
-                    $type = "danger";
-                  } else {
-                    $message = "User created";
-                    $type = "success";
-                    $user = User::createNewUser($username, $fullname,
-                      $roles, $email, $password);
-
-                    if (isset($user)) {
-                      unset($fullname);
-                      unset($roles);
-                      unset($username);
-                      unset($email);
-                    } else {
-                      $message = "Username or email already exists";
-                      $type = "danger";
-                    }
-                  }
-                }
-
-                if (isset($message)) {
-                  ?>
-                  <div class="container">
-                    <div class="alert alert-<?php echo $type ?>" >
-                      <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <?php echo $message ?>
-                  </div>
-                  <?php
-                }
-
+                include_once 'template/message.php'
               ?>
               <form method="post" class="form" role="form">
                 <div class="form-group ">
