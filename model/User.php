@@ -24,6 +24,7 @@ class User {
 
   public static function createNewUser($username, $name, $roles, $email, $password) {
     $password = md5($password);
+    echo "PASSWORD_HASH = {$password}";
 
     $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ('{$username}', '{$name}', '{$roles}', '{$email}', '{$password}')";
     $r = DBHandler::execute($statement, false);
@@ -75,7 +76,7 @@ class User {
   }
 
   public function setPassword($password) {
-    $this->password = $password;
+    $this->password = md5($password);
     return $this->save();
   }
 
@@ -98,7 +99,10 @@ class User {
   }
 
   public function verifyPassword($guess) {
+    echo "GUESS = {$guess} <br />";
     $guess = md5($guess);
+    echo "PASSWORD_HASH = {$this->password} <br />";
+    echo "GUESS_HASH = {$guess} <br />";
     return $this->password == $guess;
   }
 }
