@@ -15,7 +15,7 @@ class Project {
     return DBHandler::execute($statement, false);
   }
 
-  public function __constructor($id, $owner, $title, $description, $goal, $deadline) {
+  public function __construct($id, $owner, $title, $description, $goal, $deadline) {
     $this->id = $id;
     $this->owner = $owner;
     $this->title = $title;
