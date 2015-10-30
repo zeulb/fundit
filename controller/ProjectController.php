@@ -3,8 +3,19 @@ namespace ProjectController {
 
 include_once __DIR__ . '/../model/Project.php';
 
-public static function createNewProject($ownerUsername, $title, $description, $goal, $deadline) {
-  assert(isset($_SESSION['username']) && $ownerUsername == $_SESSION['username']);
+function createNewProject($title, $description, $goal, $deadline) {
+  date_default_timezone_set("Asia/Singapore");
+
+  $ownerUsername = $_SESSION['username'];
+  $goal = floatval($goal);
+
+  $unixTime = strToTime($deadline);
+  if (!$unixTime) {
+    return null;
+  } else {
+    $deadline = date("Y-m-d H:i:s", $unixTime);
+  }
+
   $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES('{$this->ownerUsername}', '{$this->title}', '{$this->description}', '{$this->goal}', '{$this->deadline}')";
   $r = \DBHandler::execute($statement, false);
   if (!$r) {

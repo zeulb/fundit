@@ -9,17 +9,18 @@ class Contribution {
   private $date;
   private $amount;
 
-  private function addToDatabase() {
-    $statement = "INSERT INTO fundit_contribution (contributorUsername, projectId, data, amount) VALUES ('{$contributorUsername}', '{$projectId}', '{$projectId}', '{$date}', '{$amount}')";
+  private function save() {
+    $statement = "UPDATE fundit_contribution SET contributorUsername='{$contributorUsername}', projectId={$projectId}, date='{$date}', amount={$amount}";
 
     return DBHandler::execute($statement, false);
   }
 
-  public function __construct($contributorUsername, $projectId, $amount) {
+  public function __construct($id, $contributorUsername, $projectId, $date, $amount) {
+    $this->id = $id;
     $this->contributorUsername = $contributorUsername;
     $this->projectId = $projectId;
+    $this->date = $date;
     $this->amount = $amount;
-    $this->addToDatabase();
   }
 
   public function getId() {
