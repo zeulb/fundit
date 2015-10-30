@@ -9,7 +9,7 @@ function createNewProject($title, $description, $goal, $deadline) {
   $ownerUsername = $_SESSION['username'];
   $goal = floatval($goal);
 
-  $unixTime = strToTime($deadline);
+  $unixTime = strtotime($deadline);
   if (!$unixTime) {
     return null;
   } else {
