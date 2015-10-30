@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__ . '/../db/DBHandler.php';
-include_once __DIR__ . '/contribution.php';
+include_once __DIR__ . '/Contribution.php';
 
 class Project {
   private $id;
