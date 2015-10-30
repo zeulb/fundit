@@ -6,7 +6,7 @@ include_once __DIR__ . '/../model/Project.php';
 public static function createNewProject($title, $description, $goal, $deadline) {
   $ownerUsername = $_SESSION['username'];
   $goal = floatval($goal);
-  $deadline = date("Y-m-d H:i:s", $deadline);
+  $deadline = date("Y-m-d H:i:s", strtotime($deadline));
 
   $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES('{$this->ownerUsername}', '{$this->title}', '{$this->description}', '{$this->goal}', '{$this->deadline}')";
   $r = \DBHandler::execute($statement, false);
