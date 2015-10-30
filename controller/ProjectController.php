@@ -6,17 +6,20 @@ include_once __DIR__ . '/../model/Project.php';
 function createNewProject($title, $description, $goal, $deadline) {
   date_default_timezone_set("Asia/Singapore");
 
-  $ownerUsername = $_SESSION['username'];
+  $owner = $_SESSION['username'];
   $goal = floatval($goal);
 
   $unixTime = strtotime($deadline);
   if (!$unixTime) {
     return null;
   } else {
-    $deadline = date("Y-m-d H:i:s", $unixTime);
+    $deadline = date("d-M-yh:i:s.u", $unixTime);
+    $inner = "TO_TIMESTAMP('{$deadline}', 'DD-Mon-RRHH24:MI:SS.FF')";
+    $statement = "SELECT {$inner} FROM dual";
+    $deadline = \DBHandler::execute($statement, true)[$inner];
   }
 
-  $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES('{$ownerUsername}', '{$title}', '{$description}', '{$goal}', '{$deadline}')";
+  $statement = "INSERT INTO fundit_project (owner, title, description, goal, deadline) VALUES('{$owner}', '{$title}', '{$description}', {$goal}, '{$deadline}')";
   $r = \DBHandler::execute($statement, false);
   if (!$r) {
     return null;

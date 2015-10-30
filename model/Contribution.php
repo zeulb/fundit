@@ -4,20 +4,20 @@ include_once __DIR__ . '/../db/DBHandler.php';
 
 class Contribution {
   private $id;
-  private $contributorUsername;
+  private $contributor;
   private $projectId;
   private $date;
   private $amount;
 
   private function save() {
-    $statement = "UPDATE fundit_contribution SET contributorUsername='{$contributorUsername}', projectId={$projectId}, date='{$date}', amount={$amount}";
+    $statement = "UPDATE fundit_contribution SET contributor='{$contributor}', projectId={$projectId}, date='{$date}', amount={$amount}";
 
     return DBHandler::execute($statement, false);
   }
 
-  public function __construct($id, $contributorUsername, $projectId, $date, $amount) {
+  public function __construct($id, $contributor, $projectId, $date, $amount) {
     $this->id = $id;
-    $this->contributorUsername = $contributorUsername;
+    $this->contributor = $contributor;
     $this->projectId = $projectId;
     $this->date = $date;
     $this->amount = $amount;
@@ -27,8 +27,8 @@ class Contribution {
     return $this->id;
   }
 
-  public function getContributorId() {
-    return $this->contributorUsername;
+  public function getContributor() {
+    return $this->contributor;
   }
 
   public function getProjectId() {

@@ -18,12 +18,12 @@ CREATE TABLE fundit_user (
 
 CREATE TABLE fundit_project (
   id INT PRIMARY KEY,
-  owner_id VARCHAR(20) NOT NULL,
+  owner VARCHAR(20) NOT NULL,
   title VARCHAR(64) NOT NULL,
   description VARCHAR(64) NOT NULL,
   goal REAL NOT NULL,
   deadline TIMESTAMP,
-  FOREIGN KEY (owner_id) REFERENCES fundit_user(username) ON DELETE CASCADE
+  FOREIGN KEY (owner) REFERENCES fundit_user(username) ON DELETE CASCADE
 );
   
 CREATE SEQUENCE fundit_project_seq;
@@ -41,10 +41,10 @@ END;
 
 CREATE TABLE fundit_contribution (
   id INT PRIMARY KEY,
-  contributor_id VARCHAR(20) NOT NULL,
+  contributor VARCHAR(20) NOT NULL,
   project_id INT NOT NULL,
   amount REAL NOT NULL,
-  FOREIGN KEY (contributor_id) REFERENCES fundit_user(username) ON DELETE CASCADE,
+  FOREIGN KEY (contributor) REFERENCES fundit_user(username) ON DELETE CASCADE,
   FOREIGN KEY (project_id) REFERENCES fundit_project(id) ON DELETE CASCADE
 );
   
@@ -68,4 +68,9 @@ INSERT INTO fundit_roles VALUES('creator');
 --SELECT * FROM fundit_user WHERE name = 'budi';
 --DELETE FROM fundit_user WHERE name = 'budi';
 --SELECT fundit_user_seq.CURRVAL FROM dual;
+INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('budi', 'budi_bola', 'budi@bola.com', 'admin', '529ca8050a00180790cf88b63468826a');
+INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('a', 'a', 'a', 'contributor', '529ca8050a00180790cf88b63468826a');
 
+SELECT * FROM fundit_user WHERE username = 'budi';
+SELECT * FROM fundit_user;
+SELECT * FROM fundit_user;

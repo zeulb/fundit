@@ -11,7 +11,7 @@ class Project {
   private $deadline;
 
   private function save() {
-    $statement = "UPDATE fundit_project SET ownerUsername={$this->ownerUsername}, title={$this->title}, description={$this->description}, goal={$this->goal}, deadline={$this->deadline} WHERE id={$this->id}";
+    $statement = "UPDATE fundit_project SET ownerUsername='{$this->ownerUsername}', title='{$this->title}', description='{$this->description}', goal='{$this->goal}', deadline='{$this->deadline}' WHERE id='{$this->id}'";
     return DBHandler::execute($statement, false);
   }
 
