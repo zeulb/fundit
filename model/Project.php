@@ -11,7 +11,6 @@ class Project {
   private $deadline;
 
   private function save() {
-
     $statement = "UPDATE fundit_project SET ownerUsername={$this->ownerUsername}, title={$this->title}, description={$this->description}, goal={$this->goal}, deadline={$this->deadline} WHERE id={$this->id}";
     return DBHandler::execute($statement, false);
   }
@@ -93,19 +92,6 @@ class Project {
     }
 
     return $totalContribution;
-  }
-
-  public static function getProject($id) {
-    $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id}";
-
-    $result = DBHandler::execute($statement, true);
-
-    if (count($result) != 1) {
-      return null;
-    } else {
-      $result = $result[0];
-      return new Project($result['ID'], $result['OWNERUSERNAME'], $result['TITLE'], $result['DESCRIPTION'], $result['GOAL'], $result['DEADLINE']);
-    }
   }
 
 }
