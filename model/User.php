@@ -85,8 +85,12 @@ class User {
     $statement = "SELECT * FROM fundit_user WHERE username = '{$username}'";
     $result = DBHandler::execute($statement, true);
 
-    return new User($result['USERNAME'], $result['NAME'], $result['ROLES'],
-      $result['EMAIL'], $result['PASSWORD']);
+    if (count($result) != 1) {
+      return null;
+    } else {
+      return new User($result['USERNAME'], $result['NAME'], $result['ROLES'],
+        $result['EMAIL'], $result['PASSWORD']);
+    }
   }
 
   public function getContribution() {
