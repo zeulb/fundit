@@ -28,7 +28,7 @@ class Project {
     return $this->id;
   }
 
-  public function getOwnerId() {
+  public function getOwner() {
     return $this->ownerUsername;
   }
 
