@@ -7,7 +7,7 @@
   }
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include_once("model/User.php");
+    include_once("controller/UserController.php");
     $fullname = $_POST["fullname"];
     $roles = $_POST["roles"];
     $username = $_POST["username"];
@@ -21,7 +21,7 @@
       $message = "User created";
       $message_type = "success";
 
-      $user = User::createNewUser($username, $fullname,
+      $user = UserController\createNewUser($username, $fullname,
         $roles, $email, $password);
 
       if (isset($user)) {
