@@ -87,6 +87,7 @@ class User {
     if (count($result) != 1) {
       return null;
     } else {
+      $result = $result[0];
       return new User($result['USERNAME'], $result['NAME'], $result['ROLES'],
         $result['EMAIL'], $result['PASSWORD']);
     }
