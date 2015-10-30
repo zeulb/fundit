@@ -3,9 +3,9 @@
 include_once __DIR__ . '/../db/DBHandler.php';
 
 class Roles {
-  public static $ADMIN = "Admin";
-  public static $CREATOR = "Creator";
-  public static $CONTRIBUTOR = "Contributor";
+  public static $ADMIN = "admin";
+  public static $CREATOR = "creator";
+  public static $CONTRIBUTOR = "contributor";
 
   public static function getUserList($roles) {
     $dbHandler = DBHandler::getInstance();
