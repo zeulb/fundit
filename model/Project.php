@@ -75,10 +75,27 @@ class Project {
 
     $result = array();
     foreach ($result as $res) {
-      $result[] = new Contribution($res['ID'], $res['CONTRIBUTORUSERNAME'], $res['PROJECTID'], $res['DATE'], $res['AMOUNT']);
+      $result[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECTID'], $res['DATE'], $res['AMOUNT']);
     }
 
     return $result;
+  }
+
+  public function getContributorCount() {
+    $contributor = array();
+    $contributionList = $this->getContributionList();
+
+    foreach ($contributionList as $contribution) {
+      $currentContributor = $contribution->getContributor();
+
+      if (!isset($currentContributor)) {
+        $contributor[$currentContributor] = 0;
+      }
+
+      $contributor[$currentContributor]++;
+    }
+
+    return count($contributor);
   }
 
   public function getTotalContribution() {

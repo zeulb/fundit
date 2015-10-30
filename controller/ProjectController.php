@@ -41,8 +41,21 @@ function getProject($id) {
     return null;
   } else {
     $result = $result[0];
-    return new \Project($result['ID'], $result['OWNERUSERNAME'], $result['TITLE'], $result['DESCRIPTION'], $result['GOAL'], $result['DEADLINE']);
+    return new \Project($result['ID'], $result['OWNER'], $result['TITLE'], $result['DESCRIPTION'], $result['GOAL'], $result['DEADLINE']);
   }
+}
+
+function getAllProject() {
+  $statement = "SELECT * FROM fundit_project";
+
+  $result = \DBHandler::execute($statement, true);
+
+  $projects = array();
+  foreach ($result as $res) {
+    $projects[] = new \Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE']);
+  }
+
+  return $projects;
 }
 
 }
