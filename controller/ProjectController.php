@@ -16,7 +16,7 @@ function createNewProject($title, $description, $goal, $deadline) {
     $deadline = date("Y-m-d H:i:s", $unixTime);
   }
 
-  $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES('{$this->ownerUsername}', '{$this->title}', '{$this->description}', '{$this->goal}', '{$this->deadline}')";
+  $statement = "INSERT INTO fundit_project (ownerUsername, title, description, goal, deadline) VALUES('{$ownerUsername}', '{$title}', '{$description}', '{$goal}', '{$deadline}')";
   $r = \DBHandler::execute($statement, false);
   if (!$r) {
     return null;
@@ -30,7 +30,7 @@ function createNewProject($title, $description, $goal, $deadline) {
 }
 
 function getProject($id) {
-  $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id}";
+  $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$id}";
 
   $result = \DBHandler::execute($statement, true);
 
