@@ -1,3 +1,19 @@
+<?php
+  session_start();
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    include_once 'controller/UserController.php';
+    if (signIn($username, $password)) {
+      header("Location: index.php");
+    } else {
+      $message = "Wrong username or password";
+      $message_type = "danger";
+    }
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,8 +51,18 @@
                   <li><a href="index.php">Home</a></li>
                   <li><a href="project.php">Projects</a></li>
                   <li><a href="user.php">Contributors</a></li>
-                  <li class="active"><a href="signin.php">Sign In</a></li>
-                  <li><a href="signup.php">Sign Up</a></li>
+                  <?php
+                    if (isset($_SESSION["username"])) {
+                      ?>
+                      <li><a href="profile.php">Welcome, <?php echo $_SESSION["username"]; ?></a></li>
+                      <?php
+                    } else {
+                      ?>
+                      <li class="active"><a href="signin.php">Sign In</a></li>
+                      <li><a href="signup.php">Sign Up</a></li>
+                      <?php
+                    }
+                  ?>
                 </ul>
               </nav>
             </div>
@@ -46,13 +72,9 @@
             <div class="row">
 
               <?php
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                  echo "POST COK";
+                include_once 'message.php';
               ?>
               
-              <?php
-                } else {
-              ?>
               <form method="post" class="form" role="form">
                 <div class="form-group ">
                   <label class="control-label" for="username">Username</label>
@@ -64,11 +86,7 @@
                 </div>
                 <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
               </form>
-              <?php
-                }
-              ?>
               <br/>
-              <p>Want to sign up ? Click <a href="signup.php"> here </a></p>
             </div>
             
           </div>
