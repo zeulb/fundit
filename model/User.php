@@ -24,7 +24,6 @@ class User {
 
   public static function createNewUser($username, $name, $roles, $email, $password) {
     $password = md5($password);
-    echo "PASSWORD_HASH = {$password}";
 
     $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ('{$username}', '{$name}', '{$roles}', '{$email}', '{$password}')";
     $r = DBHandler::execute($statement, false);
