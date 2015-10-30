@@ -22,7 +22,7 @@ CREATE TABLE fundit_project (
   title VARCHAR(64) NOT NULL,
   description VARCHAR(64) NOT NULL,
   goal REAL NOT NULL,
-  deadline TIMESTAMP,
+  deadline TIMESTAMP NOT NULL,
   FOREIGN KEY (owner) REFERENCES fundit_user(username) ON DELETE CASCADE
 );
   

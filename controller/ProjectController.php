@@ -14,9 +14,9 @@ function createNewProject($title, $description, $goal, $deadline) {
     return null;
   } else {
     $deadline = date("d-M-yh:i:s.u", $unixTime);
-    $inner = "TO_TIMESTAMP('{$deadline}', 'DD-Mon-RRHH24:MI:SS.FF')";
+    $inner = "TO_TIMESTAMP('{$deadline}','DD-MON-RRHH24:MI:SS.FF')";
     $statement = "SELECT {$inner} FROM dual";
-    $deadline = \DBHandler::execute($statement, true)[$inner];
+    $deadline = \DBHandler::execute($statement, true)[0][strtoupper($inner)];
   }
 
   $statement = "INSERT INTO fundit_project (owner, title, description, goal, deadline) VALUES('{$owner}', '{$title}', '{$description}', {$goal}, '{$deadline}')";
