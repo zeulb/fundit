@@ -81,6 +81,23 @@ function isContributor($username) {
   }
 }
 
+function getAllUser() {
+  $executingUser = isset($_SESSION['username']) ? getUser($_SESSION['username']) : null;
+  if ($executingUser == null || $executingUser->getRoles() != 'admin') {
+    return null;
+  }
+
+  $statement = "SELECT * FROM fundit_user";
+  $result = DBHandler::execute($statement, true);
+
+  $userList = array();
+  foreach ($result as $res) {
+    $userList[] = new \User($res['username'], $res['name'], $res['roles'], $res['email'], $res['password']);
+  }
+
+  return $userList;
+}
+
 }
 
 ?>

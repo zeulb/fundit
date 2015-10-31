@@ -2,15 +2,16 @@
 
 namespace AdminController {
 
-function addContribution(
+function isAdminLoggedIn() {
+  if (!isset($_SESSION['username'])) {
+    return false;
+  }
+  $username = $_SESSION['username'];
+  $user = \UserController\getUser($username);
 
+  return $user->getRoles() == 'admin';
 }
 
-function editContribution($contributionId, $) {
-
-}
-
-function retractContribution($contributionId, $) {
 }
 
 ?>
