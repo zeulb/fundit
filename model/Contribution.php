@@ -10,7 +10,7 @@ class Contribution {
   private $amount;
 
   private function save() {
-    $statement = "UPDATE fundit_contribution SET contributor='{$contributor}', projectId={$projectId}, date='{$date}', amount={$amount}";
+    $statement = "UPDATE fundit_contribution SET contributor='{$contributor}', projectId={$projectId}, amount={$amount}";
 
     return DBHandler::execute($statement, false);
   }
