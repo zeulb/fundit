@@ -39,7 +39,7 @@
         </div>
         <div class="form-group ">
           <label class="control-label" for="description">Description</label>
-          <input class="form-control" id="description" name="description" required type="text" value="<?php echo $username ?>">
+          <textarea class="form-control" rows="10" id="description" name="description"></textarea>
         </div>
         <div class="form-group">
           <label class="control-label" for="deadline">Deadline</label>

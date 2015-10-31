@@ -159,8 +159,12 @@ body {
 .row {
   margin: auto;
   width: 100%;
-  color: #333;
+  color: #333 !important;
   padding: 2px 10px 2px 10px;
+}
+
+.table {
+  color: #333 !important;
 }
 
 .container {

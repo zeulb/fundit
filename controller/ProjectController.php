@@ -33,7 +33,7 @@ function createNewProject($title, $description, $goal, $deadline) {
 }
 
 function getProject($id) {
-  $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$id}";
+  $statement = "SELECT * FROM fundit_project WHERE id = {$id}";
 
   $result = \DBHandler::execute($statement, true);
 
