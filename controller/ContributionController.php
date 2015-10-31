@@ -64,6 +64,8 @@ function removeContribution($contributionId) {
     $statement = "DELETE FROM fundit_contribution WHERE id = {$contributionId}";
     $result = \DBHandler::execute($statement, false);
     return $result;
+  } else {
+    return null;
   }
 }
 

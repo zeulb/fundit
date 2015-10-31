@@ -148,6 +148,8 @@ function removeUser($username) {
     $statement = "DELETE FROM fundit_user WHERE username = '{$username}'";
     $result = \DBHandler::execute($statement, false);
     return $result;
+  } else {
+    return null;
   }
 }
 

@@ -62,6 +62,8 @@ function removeProject($projectId) {
     $statement = "DELETE FROM fundit_project WHERE project_id = {$projectId}";
     $result = \DBHandler::execute($statement, false);
     return $result;
+  } else {
+    return null;
   }
 }
 
