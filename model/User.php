@@ -67,6 +67,7 @@ class User {
     }
   }
 
+  //$password -> password in plaintext
   public function setPassword($password) {
     $this->password = md5($password);
     return $this->save();
@@ -94,6 +95,22 @@ class User {
     return $contributions;
   }
 
+  //$user -> user object
+  public function canModifyUser($user) {
+    return $this->roles == 'admin' || $this->username == $username;
+  }
+
+  //$project -> project object
+  public function canModifyProject($project) {
+    return $this->roles == 'admin' || $this->username == $project->getOwner();
+  }
+
+  //$contribution -> contribution object
+  public function canModifyContribution($contribution) {
+    return $this->roles == 'admin' || $this->username == $contribution->getContributor();
+  }
+
+  //$guess -> guess in plaintext
   public function verifyPassword($guess) {
     $guess = md5($guess);
     return $this->password == $guess;
