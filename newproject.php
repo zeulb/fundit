@@ -5,7 +5,7 @@
   include_once("controller/UserController.php");
   include_once("controller/ProjectController.php");
 
-  if (!UserController\isSignedIn() || !UserController\isContributor($_SESSION["username"])) {
+  if (!UserController\isSignedIn() || !UserController\isCreator($_SESSION["username"])) {
     header("Location: index.php");
   }
 

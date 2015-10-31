@@ -17,6 +17,7 @@
 <?php ob_start(); ?>
   <br/>
   <?php if (!isset($project)) { ?>
+  
   <div class="inner cover container">
     <div class="row">
       <?php
@@ -24,7 +25,7 @@
       ?>
       <h4 class = "text-left">Recent</h4>
       <?php
-      if (UserController\isSignedIn()) {
+      if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
         ?>
         <h4 class = "text-right">
           <a href="newproject.php">
@@ -58,10 +59,15 @@
           <button type="button" class="btn btn-warning">Fund!</button>
         </a>
       </div>
+      
+
     </div>
     <?php
     }} else { ?>
-      
+
+    <?php
+    $contributionList = $project->getContributionList();
+  ?>
       <div class="inner cover container">
         <div class="row">
           <h1 class="page-header text-left"><?php echo $project->getTitle(); ?>
@@ -119,8 +125,48 @@
           </tbody>
           </table>
         </div>
+        <div class="row">
+        <h3 class="text-left"> Contribution </h3>
+        <table class="table text-left table-hover">
+        <thead>
+          <tr>
+            <th> # </th>
+            <th> Timestamp </th>
+            <th> Contributor </th>
+            <th> Amount </th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($contributionList as $contribution) {
+            $counter++;
+            $contributorUsername = $contribution->getContributor();
+            $contributor = UserController\getUser($contributorUsername);
+          ?>
+          <tr>
+            <td>
+              <?php echo $counter; ?>
+            </td>
+            <td>
+              <?php echo $contribution->getDate(); ?>
+            </td>
+            <td>
+              <a href="user.php?name=<?php echo $contributor->getUsername(); ?>">
+              <?php 
+                echo $contributor->getName();
+              ?>
+              </a>
+            </td>
+            <td>
+            $<?php echo $contribution->getAmount(); ?>
+            </td>
+          </tr>
+          <?php }
+          ?>
+        </tbody>
+        </table>
+        </div>
       </div>
-
+      
 
     <?php } ?>
   </div>
