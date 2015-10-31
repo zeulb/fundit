@@ -97,7 +97,7 @@ class User {
 
   //$user -> user object
   public function canModifyUser($user) {
-    return $this->roles == 'admin' || $this->username == $username;
+    return $this->roles == 'admin' || $this->username == $user->getUsername();
   }
 
   //$project -> project object
@@ -107,7 +107,7 @@ class User {
 
   //$contribution -> contribution object
   public function canModifyContribution($contribution) {
-    return $this->roles == 'admin' || $this->username == $contribution->getContributor();
+    return $this->roles == 'admin';
   }
 
   //$guess -> guess in plaintext
