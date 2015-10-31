@@ -46,5 +46,18 @@ function getAllContribution() {
   return $contributionList;
 }
 
+function getContribution($contributionId) {
+  $statement = "SELECT * FROM fundit_contribution WHERE id = {$contributionId}";
+  $result = \DBHandler::execute($statement, true);
+
+  if (count($result) != 1) {
+    return null;
+  } else {
+    $result = $result[0];
+    $result['TIMESTAMP'] = \DateHelper\beautifyDateFromSql($result['TIMESTAMP']);
+    return new \Contribution($result['ID'], $result['CONTRIBUTOR'], $result['PROJECT_ID'], $result['TIMESTAMP'], $result['AMOUNT']);
+  }
+}
+
 }
 ?>

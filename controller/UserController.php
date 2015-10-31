@@ -3,6 +3,8 @@ namespace UserController {
 
 include_once __DIR__ . '/../db/DBHandler.php';
 include_once __DIR__ . '/../model/User.php';
+include_once __DIR__ . '/ContributionController.php';
+include_once __DIR__ . '/ProjectController.php';
 
 function signIn($username, $password) {
   $user = getUser($username);
@@ -61,6 +63,14 @@ function getUser($username) {
   }
 }
 
+function getActiveUser() {
+  $activeUser = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+  if ($activeUser) {
+    $activeUser = getUser($activeUser);
+  }
+  return $activeUser;
+}
+
 function isCreator($username) {
   if (isset($username)) {
     $statement = "SELECT roles FROM fundit_user WHERE username = '{$username}'";
@@ -113,6 +123,24 @@ function getAllUser() {
   }
 
   return $userList;
+}
+
+function canActiveUserModifyUser($username) {
+  $activeUser = getActiveUser();
+  $userToModify = getUser($username);
+  return $activeUser && $userToModify && $activeUser->canModifyUser($username);
+}
+
+function canActiveUserModifyProject($projectId) {
+  $activeUser = getActiveUser();
+  $projectToModify = \ProjectController\getProject($projectId);
+  return $activeUser && $projectToModify && $activeUser->canModifyProject($projectToModify);
+}
+
+function canActiveUserModifyContribution($contributionId) {
+  $activeUser = getActiveUser();
+  $contributionToModify = \ContributionController\getContribution($contributionId);
+  return $activeUser && $contributionToModify && $activeUser->canModifyContribution($contributionToModify);
 }
 
 }

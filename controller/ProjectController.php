@@ -43,10 +43,6 @@ function getProject($id) {
 }
 
 function getAllProject() {
-  $executingUser = isset($_SESSION['username']) ? \UserController\getUser($_SESSION['username']) : null;
-  if ($executingUser == null || $executingUser->getRoles() != 'admin') {
-    return null;
-  }
 
   $statement = "SELECT * FROM fundit_project";
 
