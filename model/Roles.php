@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . '/../db/DBHandler.php';
+include_once __DIR__ . '/User.php';
 
 class Roles {
   public static $ADMIN = "admin";

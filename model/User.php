@@ -13,7 +13,6 @@ class User {
   private $password;
 
   private function save() {
-
     $statement = "UPDATE fundit_user SET name='{$this->name}', roles='{$this->roles}', email='{$this->email}', password='{$this->password}' WHERE username='{$this->username}'";
     return DBHandler::execute($statement, false);
   }
