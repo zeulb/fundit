@@ -1,24 +1,27 @@
 <?php
 
 include_once __DIR__ . '/../db/DBHandler.php';
+include_once __DIR__ . '/../helper/DateHelper.php';
 
 class Contribution {
   private $id;
   private $contributor;
   private $projectId;
-  private $date;
+  private $timestamp;
   private $amount;
 
   private function save() {
+    $timestamp = \DateHelper\convertToSqlFormatFromString($timestamp);
     $statement = "UPDATE fundit_contribution SET contributor='{$this->contributor}', projectId={$this->projectId}, amount={$this->amount}";
+    $timestamp = \DateHelper\beautifyDateFromSql($timestamp);
     return DBHandler::execute($statement, false);
   }
 
-  public function __construct($id, $contributor, $projectId, $date, $amount) {
+  public function __construct($id, $contributor, $projectId, $timestamp, $amount) {
     $this->id = $id;
     $this->contributor = $contributor;
     $this->projectId = $projectId;
-    $this->date = $date;
+    $this->timestamp = $timestamp;
     $this->amount = $amount;
   }
 
@@ -35,11 +38,27 @@ class Contribution {
   }
 
   public function getDate() {
-    return $this->date;
+    return $this->timestamp;
   }
 
   public function getAmount() {
     return $this->amount;
+  }
+
+  public function setContributor($contributor) {
+    $this->contributor = $contributor;
+  }
+
+  public function setProjectId($projectId) {
+    $this->projectId = intval($projectId);
+  }
+
+  public function setTimestamp($timestamp) {
+    $this->timestamp = $timestamp;
+  }
+
+  public function setAmount($amount) {
+    $this->amount = $amount;
   }
 
 }
