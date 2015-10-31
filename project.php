@@ -28,7 +28,7 @@
       if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
         ?>
         <h4 class = "text-right">
-          <a href="newproject.php">
+          <a href="new_project.php">
             <button type="button" class="btn btn-info">New Project</button>
           </a>
         </h4>
