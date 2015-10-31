@@ -26,8 +26,8 @@ CREATE TABLE fundit_project (
   FOREIGN KEY (owner) REFERENCES fundit_user(username) ON DELETE CASCADE
 );
   
-/*
 CREATE SEQUENCE fundit_project_seq;
+/*
 
 CREATE OR REPLACE TRIGGER fundit_project_bir
 BEFORE INSERT ON fundit_project
@@ -51,8 +51,8 @@ CREATE TABLE fundit_contribution (
   FOREIGN KEY (project_id) REFERENCES fundit_project(id) ON DELETE CASCADE
 );
   
-/*
 CREATE SEQUENCE fundit_contribution_seq;
+/*
 
 CREATE OR REPLACE TRIGGER fundit_contribution_bir
 BEFORE INSERT ON fundit_contribution
