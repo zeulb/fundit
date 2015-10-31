@@ -27,7 +27,8 @@
       $message = "Please enter fund in number";
       $message_type = "danger";
     } else {
-      echo $contribution->getId();
+      $message = "Thanks for funding ".$project->getTitle();
+      $message_type = "success";
     }
   }
 ?>

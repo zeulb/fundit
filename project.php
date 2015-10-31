@@ -77,12 +77,19 @@
             <?php
                 $contribution = $project->getTotalContribution();
                 $goal = $project->getGoal();
-                $actualProgress = intval($contribution/$goal);
+                $actualProgress = (100.0*$contribution/$goal);
                 $progress = min($actualProgress, 100);
+                if ($progress > 8.0) {
+                  $progressString = number_format($actualProgress, 2, '.', '')."%";
+                } else {
+                  $progressString = "";
+                }
             ?>
 
             <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $progress; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $progress; ?>%;">
-              <?php echo '$'.$actualProgress.'/$'.$goal; ?>
+              <p class="text-middle">
+                <?php echo $progressString; ?>
+              </p>
             </div>
           </div>
         </div>
