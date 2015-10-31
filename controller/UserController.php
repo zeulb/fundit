@@ -62,13 +62,17 @@ function getUser($username) {
 }
 
 function isCreator($username) {
-  $statement = "SELECT roles FROM fundit_user WHERE username = '{$username}'";
-  $result = \DBHandler::execute($statement, true);
+  if (isset($username)) {
+    $statement = "SELECT roles FROM fundit_user WHERE username = '{$username}'";
+    $result = \DBHandler::execute($statement, true);
 
-  if (count($result) != 1) {
-    return null;
+    if (count($result) != 1) {
+      return false;
+    } else {
+      return $result[0]['ROLES'] == 'creator' || $result[0]['ROLES'] == 'admin';
+    }
   } else {
-    return $result[0]['ROLES'] == 'creator' || $result[0]['ROLES'] == 'admin';
+    return false;
   }
 }
 
@@ -78,6 +82,19 @@ function isContributor($username) {
     $result = \DBHandler::execute($statement, true);
 
     return count($result) == 1;
+  } else {
+    return false;
+  }
+}
+
+function isAdmin($username) {
+  if (isset($username)) {
+    $statement = "SELECT * FROM fundit_user WHERE username = '{$username}'";
+    $result = \DBHandler::execute($statement, true);
+
+    return count($result) == 1 && $result[0]['ROLES'] == 'admin';
+  } else {
+    return false;
   }
 }
 
