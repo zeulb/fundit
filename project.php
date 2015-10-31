@@ -28,7 +28,7 @@
         ?>
         <h4 class = "text-right">
           <a href="newproject.php">
-            <button type="button" class="btn btn-warning">New Project</button>
+            <button type="button" class="btn btn-info">New Project</button>
           </a>
         </h4>
       <?php
@@ -55,7 +55,7 @@
       <div class="col-md-6" align="right">
         <h4 class = "text-right"> $<?php echo $project->getTotalContribution(); ?> </h4>
         <a href="project.php?id=<?php echo $project->getId() ?>">
-          <button type="button" class="btn btn-success">Fund!</button>
+          <button type="button" class="btn btn-warning">Fund!</button>
         </a>
       </div>
     </div>
@@ -81,10 +81,17 @@
                 $progress = min($actualProgress, 100);
             ?>
 
-            <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $progress; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $progress; ?>%;">
-              <?php echo $actualProgress; ?>
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="<?php echo $progress; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $progress; ?>%;">
+              <?php echo '$'.$actualProgress.'/$'.$goal; ?>
             </div>
           </div>
+        </div>
+        <div class="row">
+          <h3 class="text-right">
+            <a href="fund.php?id=<?php echo $project->getId() ?>">
+              <button type="button" class="btn btn-warning">Fund!</button>
+            </a>
+          </h3>
         </div>
         <div class="row">
           <p class="text-left"><?php echo $project->getDescription(); ?></p>
