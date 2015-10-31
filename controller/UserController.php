@@ -61,14 +61,14 @@ function getUser($username) {
   }
 }
 
-function isContributor($username) {
+function isCreator($username) {
   $statement = "SELECT roles FROM fundit_user WHERE username = '{$username}'";
   $result = \DBHandler::execute($statement, true);
 
   if (count($result) != 1) {
     return null;
   } else {
-    return $result[0]['ROLES'] == 'contributor' || $result[0]['ROLES'] == 'admin';
+    return $result[0]['ROLES'] == 'creator' || $result[0]['ROLES'] == 'admin';
   }
 }
 
