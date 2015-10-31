@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__ . '/../db/DBHandler.php';
 include_once __DIR__ . '/Contribution.php';
+include_once __DIR__ . '/../helper/DateHelper.php';
 
 date_default_timezone_set("Asia/Singapore");
 
@@ -77,8 +78,7 @@ class Project {
 
     $contributions = array();
     foreach ($result as $res) {
-      $res['TIMESTAMP'] = DateTime::createFromFormat('j-M-y h.i.s.u A', $res['TIMESTAMP']);
-      $res['TIMESTAMP'] = $res['TIMESTAMP']->format('d M Y h:m A');
+      $res['TIMESTAMP'] = DateHelper\beautifyDateFromSql($res['TIMESTAMP']);
       $contributions[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECTID'], $res['TIMESTAMP'], $res['AMOUNT']);
     }
 

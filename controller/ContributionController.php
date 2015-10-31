@@ -3,15 +3,13 @@ namespace ContributionController {
 
 include_once __DIR__ . '/../model/Contribution.php';
 include_once __DIR__ . '/../db/DBHandler.php';
+include_once __DIR__ . '/../helper/DateHelper.php';
 
 function createNewContribution($projectId, $amount) {
   date_default_timezone_set("Asia/Singapore");
 
   $contributor = $_SESSION['username'];
-  $contributionDate = date("d-M-yh:i:s.u", time());
-  $inner = "TO_TIMESTAMP('{$contributionDate}','DD-MON-RRHH24:MI:SS.FF')";
-  $statement = "SELECT {$inner} FROM dual";
-  $contributionDate = \DBHandler::execute($statement, true)[0][strtoupper($inner)];
+  $contributionDate = DateHelper\convertToSqlFormatFromUnixTime(time());
   $amount = floatval($amount);
   $projectId = intval($projectId);
 
