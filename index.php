@@ -9,7 +9,7 @@
     <h1 class="cover-heading">Welcome to FundIt</h1>
     <p class="lead">Crowdfunding site</p>
     <p class="lead">
-      <a href="#" class="btn btn-lg btn-default">Learn more</a>
+      <a href="project.php" class="btn btn-lg btn-default">Learn more</a>
     </p>
   </div>
 <?php

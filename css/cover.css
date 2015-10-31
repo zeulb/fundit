@@ -184,6 +184,6 @@ button {
   color: #337ab7;
 }
 
-.table th, .table td { 
+.borderless th, .borderless td { 
      border-top: none !important; 
 }

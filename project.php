@@ -49,7 +49,7 @@
         echo UserController\getUser($username)->getName(); ?>
         </a>
         ·
-        <?php echo $project->getContributorCount(); ?> funders
+        <?php echo $project->getContributorCount(); ?> funder(s)
         </p>
       </div>
       <div class="col-md-6" align="right">
@@ -123,11 +123,6 @@
 
 
     <?php } ?>
-
-    
-    <div class="row">
-      <hr/>
-    </div>
   </div>
 <?php
   $content = ob_get_clean();
