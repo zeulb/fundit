@@ -143,6 +143,14 @@ function canActiveUserModifyContribution($contributionId) {
   return $activeUser && $contributionToModify && $activeUser->canModifyContribution($contributionToModify);
 }
 
+function removeUser($username) {
+  if (canActiveUserModifyUser($username)) {
+    $statement = "DELETE FROM fundit_user WHERE username = '{$username}'";
+    $result = \DBHandler::execute($statement, false);
+    return $result;
+  }
+}
+
 }
 
 ?>

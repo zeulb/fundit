@@ -59,5 +59,13 @@ function getContribution($contributionId) {
   }
 }
 
+function removeContribution($contributionId) {
+  if (\UserController\canActiveUserModifyContribution($contributionId)) {
+    $statement = "DELETE FROM fundit_contribution WHERE id = {$contributionId}";
+    $result = \DBHandler::execute($statement, false);
+    return $result;
+  }
+}
+
 }
 ?>

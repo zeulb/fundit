@@ -57,6 +57,14 @@ function getAllProject() {
   return $projects;
 }
 
+function removeProject($projectId) {
+  if (\UserController\canActiveUserModifyProject($projectId)) {
+    $statement = "DELETE FROM fundit_project WHERE project_id = {$projectId}";
+    $result = DBHandler::execute($statement, false);
+    return $result;
+  }
+}
+
 }
 
 ?>
