@@ -10,7 +10,7 @@ class Roles {
   public static function getUserList($roles) {
     $dbHandler = DBHandler::getInstance();
 
-    $statement = "SELECT * FROM fundit_user WHERE roles='{$this->roles}'";
+    $statement = "SELECT * FROM fundit_user WHERE roles='{$roles}'";
     $result = $dbHandler->execute($statement, true);
 
     $users = array();
