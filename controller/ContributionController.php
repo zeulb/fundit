@@ -20,8 +20,6 @@ function createNewContribution($projectId, $amount) {
   $statement = "INSERT INTO fundit_contribution (id, contributor, project_id, timestamp, amount) VALUES ({$id}, '{$contributor}', {$projectId}, '{$contributionDate}', {$amount})";
   $result = \DBHandler::execute($statement, false);
 
-  echo $statement;
-
   if (!$result) {
     return null;
   } else {
