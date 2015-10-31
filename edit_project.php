@@ -89,6 +89,9 @@
           </div>
         </div>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
+        <a href="delete_project.php?id=<?php echo $project->getId() ?>">
+          <button class="btn btn-warning" type="button">Delete</button>
+        </a>
       </form>
       <br/>
     </div>

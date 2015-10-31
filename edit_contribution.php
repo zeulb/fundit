@@ -16,7 +16,7 @@
       $fund = $_POST["fund"];
       $timestamp = $_POST["timestamp"];
 
-      $contribution->setFund($fund);
+      $contribution->setAmount($fund);
       $contribution->setTimestamp($timestamp);
 
       $message = "Contribution updated";
@@ -78,6 +78,9 @@
           });
         </script>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
+        <a href="delete_contribution.php?id=<?php echo $contribution->getId() ?>">
+          <button class="btn btn-warning" type="button">Delete</button>
+        </a>
       </form>
       <br/>
       <?php
