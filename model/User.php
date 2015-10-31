@@ -16,8 +16,7 @@ class User {
   }
 
   private function fetchContribution() {
-
-    $statement = "SELECT * FROM fundit_contribution WHERE contributor_username = '{$username}'";
+    $statement = "SELECT * FROM fundit_contribution WHERE contributor = '{$this->username}'";
     $result = DBHandler::execute($statement, true);
     return $result;
   }
@@ -70,13 +69,27 @@ class User {
     return $this->save();
   }
 
-  public function getContribution() {
-    $contributions = fetchConstribution();
-    $totalContribution = 0;
-    foreach ($contributions as $contribution) {
-      $totalContributions += $contribution['AMOUNT'];
+  public function getTotalContribution() {
+    $statement = "SELECT SUM(AMOUNT) FROM fundit_contribution WHERE contributor = '{$this->username}'";
+
+    $result = DBHandler::execute($statement, true);
+
+    return $result[0]['SUM(AMOUNT)'];
+  }
+
+  public function getContributionList() {
+    $statement = "SELECT * FROM fundit_contribution WHERE contributor = '{$this->username}'";
+
+    $result = DBHandler::execute($statement, true);
+
+    $contributions = array();
+    foreach ($result as $res) {
+      $res['TIMESTAMP'] = DateTime::createFromFormat('j-M-y h.i.s.u A', $res['TIMESTAMP']);
+      $res['TIMESTAMP'] = $res['TIMESTAMP']->format('d M Y h:m A');
+      $contributions[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECTID'], $res['TIMESTAMP'], $res['AMOUNT']);
     }
-    return $totalContributions;
+
+    return $contributions;
   }
 
   public function verifyPassword($guess) {

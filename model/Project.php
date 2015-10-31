@@ -73,12 +73,14 @@ class Project {
 
     $result = DBHandler::execute($statement, true);
 
-    $result = array();
+    $contributions = array();
     foreach ($result as $res) {
-      $result[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECTID'], $res['DATE'], $res['AMOUNT']);
+      $res['TIMESTAMP'] = DateTime::createFromFormat('j-M-y h.i.s.u A', $res['TIMESTAMP']);
+      $res['TIMESTAMP'] = $res['TIMESTAMP']->format('d M Y h:m A');
+      $contributions[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECTID'], $res['TIMESTAMP'], $res['AMOUNT']);
     }
 
-    return $result;
+    return $contributions;
   }
 
   public function getContributorCount() {
