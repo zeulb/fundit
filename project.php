@@ -55,9 +55,23 @@
       </div>
       <div class="col-md-6" align="right">
         <h4 class = "text-right"> $<?php echo $project->getTotalContribution(); ?> </h4>
+        <?php
+          if (UserController\canActiveUserModifyProject($project->getId())) {
+            ?>
+            <a href="edit_project.php?id=<?php echo $project->getId() ?>">
+              <button type="button" class="btn btn-info">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </button>
+            </a>
+            <?php
+          } 
+
+        ?>
         <a href="project.php?id=<?php echo $project->getId() ?>">
           <button type="button" class="btn btn-warning">Fund!</button>
         </a>
+        
+         
       </div>
       
 
@@ -101,6 +115,18 @@
         </div>
         <div class="row">
           <h3 class="text-right">
+          <?php
+          if (UserController\canActiveUserModifyProject($project->getId())) {
+            ?>
+            <a href="edit_project.php?id=<?php echo $project->getId() ?>">
+              <button type="button" class="btn btn-info">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </button>
+            </a>
+            <?php
+          } 
+
+        ?>
             <a href="fund.php?id=<?php echo $project->getId() ?>">
               <button type="button" class="btn btn-warning">Fund!</button>
             </a>
@@ -134,6 +160,9 @@
             <th> Timestamp </th>
             <th> Contributor </th>
             <th> Amount </th>
+            <?php if (UserController\isAdmin($_SESSION["username"])) {
+              echo "<th> Modify </th>";
+              } ?>
           </tr>
         </thead>
         <tbody>
@@ -159,6 +188,16 @@
             <td>
             $<?php echo $contribution->getAmount(); ?>
             </td>
+            <?php if (UserController\canActiveUserModifyContribution($contribution->getId())) {?>
+              <td>
+              <a href="edit_contribution.php?id=<?php echo $contribution->getId() ?>">
+              <button type="button" class="btn btn-info btn-xs">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </button>
+            </a>
+            </td>
+              <?php
+              } ?>
           </tr>
           <?php }
           ?>

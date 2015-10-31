@@ -90,6 +90,9 @@
           <th> Timestamp </th>
           <th> Project </th>
           <th> Amount </th>
+          <?php if (UserController\isAdmin($_SESSION["username"])) {
+              echo "<th> Modify </th>";
+              } ?>
         </tr>
       </thead>
       <tbody>
@@ -115,6 +118,16 @@
           <td>
           $<?php echo $contribution->getAmount(); ?>
           </td>
+          <?php if (UserController\canActiveUserModifyContribution($contribution->getId())) {?>
+              <td>
+              <a href="edit_contribution.php?id=<?php echo $contribution->getId() ?>">
+              <button type="button" class="btn btn-info btn-xs">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </button>
+            </a>
+            </td>
+              <?php
+              } ?>
         </tr>
         <?php }
         ?>

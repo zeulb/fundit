@@ -36,6 +36,12 @@
     $message_type = "danger";
   }
 
+  if (isset($project) &&!UserController\canActiveUserModifyProject($project->getId())) {
+    unset($project);
+    $message = "Cannot edit selected project";
+    $message_type = "danger";
+  }
+
 ?>
 
 <?php ob_start(); ?>
