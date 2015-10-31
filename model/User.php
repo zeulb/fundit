@@ -117,7 +117,7 @@ class User {
   }
 
   public function getProjectList() {
-    $statement = "SELECT * FROM fundit_project WHERE owner = '{$owner}'";
+    $statement = "SELECT * FROM fundit_project WHERE owner = '{$this->username}'";
 
     $result = DBHandler::execute($statement, true);
 
