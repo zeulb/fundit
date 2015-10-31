@@ -10,6 +10,17 @@
   <div class="inner cover container">
     <div class="row">
       <h4 class = "text-left">Recent</h4>
+      <?php
+      if (UserController\isSignedIn()) {
+        ?>
+        <h4 class = "text-right">
+          <a href="newproject.php">
+            <button type="button" class="btn btn-warning">New Project</button>
+          </a>
+        </h4>
+      <?php
+        }
+      ?>
     </div>
     <?php
     $projectList = ProjectController\getAllProject();

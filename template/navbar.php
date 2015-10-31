@@ -19,7 +19,7 @@
         <?php
           if (isset($_SESSION["username"])) {
             ?>
-            <li class="<?php echo isActive('Profile'); ?>"><a href="profile.php">Welcome, <?php echo $_SESSION["username"]; ?></a></li>
+            <li class="<?php echo isActive('Profile'); ?>"><a href="profile.php">Hi, <?php echo $_SESSION["username"]; ?></a></li>
             <li class="<?php echo isActive('Sign Out'); ?>"><a href="signout.php">Sign Out</a></li>
             <?php
           } else {
