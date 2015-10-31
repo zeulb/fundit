@@ -72,6 +72,15 @@ function isCreator($username) {
   }
 }
 
+function isContributor($username) {
+  if (isset($username)) {
+    $statement = "SELECT * FROM fundit_user WHERE username = '{$username}'";
+    $result = \DBHandler::execute($statement, true);
+
+    return count($result) == 1;
+  }
+}
+
 }
 
 ?>
