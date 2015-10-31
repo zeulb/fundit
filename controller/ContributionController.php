@@ -27,10 +27,6 @@ function createNewContribution($projectId, $amount) {
   if (!$result) {
     return null;
   } else {
-    $statement = "SELECT fundit_contribution_seq.CURRVAL FROM dual";
-    $result = \DBHandler::execute($statement, true);
-
-    $id = intval($result[0]['CURRVAL']);
     return new \Contribution($id, $contributor, $projectId, $contributionDate, $amount);
   }
 }

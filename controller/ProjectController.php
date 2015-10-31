@@ -28,10 +28,6 @@ function createNewProject($title, $description, $goal, $deadline) {
   if (!$r) {
     return null;
   } else {
-    $statement = "SELECT fundit_project_seq.CURRVAL FROM dual";
-    $result = \DBHandler::execute($statement, true)[0];
-    $id = intval($result['CURRVAL']);
-
     return new \Project($id, $owner, $title, $description, $goal, $deadline);
   }
 }
