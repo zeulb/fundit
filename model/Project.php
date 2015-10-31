@@ -82,32 +82,20 @@ class Project {
   }
 
   public function getContributorCount() {
-    $contributor = array();
-    $contributionList = $this->getContributionList();
-
-    foreach ($contributionList as $contribution) {
-      $currentContributor = $contribution->getContributor();
-
-      if (!isset($currentContributor)) {
-        $contributor[$currentContributor] = 0;
-      }
-
-      $contributor[$currentContributor]++;
-    }
-
-    return count($contributor);
-  }
-
-  public function getTotalContribution() {
-    $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id}";
+    $statement = "SELECT COUNT(DISTINCT CONTRIBUTOR) FROM fundit_contribution WHERE project_id = {$this->id}";
 
     $result = DBHandler::execute($statement, true);
 
-    $totalContribution = 0.0;
-    foreach ($result as $res) {
-      $totalContribution += floatval($res['AMOUNT']);
-    }
+    $contributorCount = $result[0]['COUNT(DISTINCTCONTRIBUTOR)'];
+    return $contributorCount;
+  }
 
+  public function getTotalContribution() {
+    $statement = "SELECT SUM(AMOUNT) FROM fundit_contribution WHERE project_id = {$this->id}";
+
+    $result = DBHandler::execute($statement, true);
+
+    $totalContribution = $result[0]['SUM(AMOUNT)'];
     return $totalContribution;
   }
 
