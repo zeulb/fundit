@@ -14,7 +14,9 @@ class Project {
   private $deadline;
 
   private function save() {
+    $this->deadline = DateHelper\convertToSqlFormatFromString($this->deadline);
     $statement = "UPDATE fundit_project SET owner='{$this->owner}', title='{$this->title}', description='{$this->description}', goal='{$this->goal}', deadline='{$this->deadline}' WHERE id='{$this->id}'";
+    $this->deadline = DateHelper\beautifyDateFromSql($this->deadline);
     return DBHandler::execute($statement, false);
   }
 
@@ -79,7 +81,7 @@ class Project {
     $contributions = array();
     foreach ($result as $res) {
       $res['TIMESTAMP'] = DateHelper\beautifyDateFromSql($res['TIMESTAMP']);
-      $contributions[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECTID'], $res['TIMESTAMP'], $res['AMOUNT']);
+      $contributions[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECT_ID'], $res['TIMESTAMP'], $res['AMOUNT']);
     }
 
     return $contributions;
