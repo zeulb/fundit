@@ -2,6 +2,7 @@
 include_once __DIR__ . '/Contribution.php';
 include_once __DIR__ . '/../db/DBHandler.php';
 include_once __DIR__ . '/../helper/DateHelper.php';
+include_once __DIR__ . '/Project.php';
 
 date_default_timezone_set("Asia/Singapore");
 
@@ -96,6 +97,20 @@ class User {
   public function verifyPassword($guess) {
     $guess = md5($guess);
     return $this->password == $guess;
+  }
+
+  public function getProjectList() {
+    $statement = "SELECT * FROM fundit_project WHERE owner = '{$owner}'";
+
+    $result = DBHandler::execute($statement, true);
+
+    $projectList = array();
+    foreach ($result as $res) {
+      $res['DEADLINE'] = \DateHelper\beautifyDateFromSql($res['DEADLINE']);
+      $projectList[] = new Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE']);
+    }
+
+    return $projectList;
   }
 }
 ?>
