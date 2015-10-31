@@ -15,7 +15,11 @@ function createNewContribution($projectId, $amount) {
   $amount = floatval($amount);
   $projectId = intval($projectId);
 
-  $statement = "INSERT INTO fundit_contribution (contributor, project_id, timestamp, amount) VALUES ('{$contributor}', {$projectId}, '{$contributionDate}', {$amount})";
+  $statement = "SELECT fundit_contribution_seq.NEXTVAL FROM dual";
+  $result = \DBHandler::execute($statement, true);
+  $id = $result[0]['NEXTVAL'];
+
+  $statement = "INSERT INTO fundit_contribution (id, contributor, project_id, timestamp, amount) VALUES ({$id}, '{$contributor}', {$projectId}, '{$contributionDate}', {$amount})";
   $result = \DBHandler::execute($statement, false);
 
   echo $statement;

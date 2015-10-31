@@ -19,7 +19,11 @@ function createNewProject($title, $description, $goal, $deadline) {
     $deadline = \DBHandler::execute($statement, true)[0][strtoupper($inner)];
   }
 
-  $statement = "INSERT INTO fundit_project (owner, title, description, goal, deadline) VALUES('{$owner}', '{$title}', '{$description}', {$goal}, '{$deadline}')";
+  $statement = "SELECT fundit_project_seq.NEXTVAL FROM dual";
+  $r = \DBHandler::execute($statement, true);
+  $id = $r[0]['NEXTVAL'];
+
+  $statement = "INSERT INTO fundit_project (id, owner, title, description, goal, deadline) VALUES({$id}, '{$owner}', '{$title}', '{$description}', {$goal}, '{$deadline}')";
   $r = \DBHandler::execute($statement, false);
   if (!$r) {
     return null;
