@@ -101,8 +101,11 @@ class Project {
 
     $result = DBHandler::execute($statement, true);
 
-    $totalContribution = $result[0]['SUM(AMOUNT)'];
-    return $totalContribution;
+    if (isset($result[0]['SUM(AMOUNT)'])) {
+      return $result[0]['SUM(AMOUNT)'];
+    } else {
+      return 0.0;
+    }
   }
 
 }
