@@ -12,7 +12,7 @@ class Contribution {
 
   private function save() {
     $timestamp = \DateHelper\convertToSqlFormatFromString($timestamp);
-    $statement = "UPDATE fundit_contribution SET contributor='{$this->contributor}', projectId={$this->projectId}, amount={$this->amount}";
+    $statement = "UPDATE fundit_contribution SET contributor='{$this->contributor}', project_id={$this->projectId}, amount={$this->amount}, timestamp='{$timestamp}' WHERE id={$this->id}";
     $timestamp = \DateHelper\beautifyDateFromSql($timestamp);
     return DBHandler::execute($statement, false);
   }
@@ -47,18 +47,22 @@ class Contribution {
 
   public function setContributor($contributor) {
     $this->contributor = $contributor;
+    return $this->save();
   }
 
   public function setProjectId($projectId) {
     $this->projectId = intval($projectId);
+    return $this->save();
   }
 
   public function setTimestamp($timestamp) {
     $this->timestamp = $timestamp;
+    return $this->save();
   }
 
   public function setAmount($amount) {
     $this->amount = $amount;
+    return $this->save();
   }
 
 }

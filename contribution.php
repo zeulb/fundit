@@ -26,6 +26,7 @@
       <thead>
         <tr>
           <th> # </th>
+          <th> Id </th>
           <th> Contributor </th>
           <th> Project </th>
           <th> Timestamp </th>
@@ -44,6 +45,9 @@
         <tr>
           <td>
             <?php echo ++$counter; ?>
+          </td>
+          <td>
+              <?php echo $contribution->getId(); ?>
           </td>
           <td>
             <a href="user.php?name=<?php echo $contributorUsername; ?>">
