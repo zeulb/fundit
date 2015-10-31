@@ -1,40 +1,51 @@
 <?php
   session_start();
   $current_page = 'Profile';
-
-  if (!isset($_SESSION["username"])) {
-    header("Location: index.php");
-  }
-
   include_once "controller/UserController.php";
 
-  $user = UserController\getSignedInUser();
-  $fullname = $user->getName();
-  $email = $user->getEmail();
+  $username = $_SESSION["username"];
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include_once("controller/UserController.php");
-    $fullname = $_POST["fullname"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $verify_password = $_POST["verify_password"];
+  if (isset($_GET["name"])) {
+    $username = $_GET["name"];
+  }
 
-    if ($password !== $verify_password) {
-      $message = "Password doesn't match";
-      $message_type = "danger";
-    } else {
-      $message = "Profile updated";
-      $message_type = "success";
+  if (!UserController\canActiveUserModifyUser($username)) {
+    $message = "Permission denied";
+    $message_type = "danger";
+  } else {
+    $user = UserController\getUser($username);
+    $fullname = $user->getName();
+    $email = $user->getEmail();
+    $roles = $user->getRoles();
 
-      $user = UserController\getSignedInUser();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      include_once("controller/UserController.php");
+      $fullname = $_POST["fullname"];
+      $email = $_POST["email"];
+      $password = $_POST["password"];
+      $verify_password = $_POST["verify_password"];
+      $roles = $_POST["roles"];
 
-      if ($user->setEmail($email)) {
-        $message = "Invalid email or email already exists";
+      if ($password !== $verify_password) {
+        $message = "Password doesn't match";
         $message_type = "danger";
       } else {
-        $user->setPassword($password);
-        $user->setName($fullname);
-      }   
+        $message = "Profile updated";
+        $message_type = "success";
+
+        $user = UserController\getSignedInUser();
+
+        if ($user->setEmail($email)) {
+          $message = "Invalid email or email already exists";
+          $message_type = "danger";
+        } else {
+          $user->setPassword($password);
+          $user->setName($fullname);
+          if (UserController\isAdmin($_SESSION["username"])) {
+            $user->setRoles($roles);
+          }
+        }   
+      }
     }
   }
 ?>
@@ -45,7 +56,8 @@
     <div class="row">
 
       <?php
-        include_once 'template/message.php'
+        include_once 'template/message.php';
+        if ($message_type != 'danger') {
       ?>
       <form method="post" class="form" role="form">
         <div class="form-group ">
@@ -56,6 +68,20 @@
           <label class="control-label" for="email">Email</label>
           <input class="form-control" id="email" name="email" required type="text" value="<?php echo $email ?>">
         </div>
+        <?php
+        if (UserController\isAdmin($_SESSION["username"])) {
+            ?>
+              <div class="form-group">
+          <label for="roles">Roles</label>
+          <select class="form-control" id="roles" name="roles">
+            <option <?php echo $user->getRoles() == 'admin' ? "selected" : ""; ?> value="admin">Administrator</option>
+            <option <?php echo $user->getRoles() == 'creator' ? "selected" : ""; ?> value="creator">Creator</option>
+            <option <?php echo $user->getRoles() == 'contributor' ? "selected" : ""; ?> value="contributor">Contributor</option>
+          </select>
+        </div>
+            <?php
+          }
+        ?>
         <div class="form-group ">
           <label class="control-label" for="password">Password</label>
           <input class="form-control" id="password" name="password" required type="password" value="">
@@ -71,6 +97,7 @@
     
   </div>
 <?php
+  }
   $content = ob_get_clean();
   include_once 'template/skeleton.php';
 ?>

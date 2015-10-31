@@ -35,12 +35,12 @@ function getAllContribution() {
   }
 
   $statement = "SELECT * FROM fundit_contribution";
-  $result = DBHandler::execute($statement, true);
+  $result = \DBHandler::execute($statement, true);
 
   $contributionList = array();
   foreach ($result as $res) {
-    $res['DATE'] = \DateHelper\beautifyDateFromSql($res['DATE']);
-    $contributionList[] = new \Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECT_ID'], $res['DATE'], $res['AMOUNT']);
+    $res['TIMESTAMP'] = \DateHelper\beautifyDateFromSql($res['TIMESTAMP']);
+    $contributionList[] = new \Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECT_ID'], $res['TIMESTAMP'], $res['AMOUNT']);
   }
 
   return $contributionList;

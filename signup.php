@@ -52,9 +52,9 @@
         </div>
         <div class="form-group">
           <label for="roles">Roles</label>
-          <select class="form-control" id="roles" name="roles" value="<?php echo $roles ?>">
-            <option value="creator">Creator</option>
-            <option value="contributor">Contributor</option>
+          <select class="form-control" id="roles" name="roles" selected="<?php echo $roles ?>">
+            <option <?php echo $roles == 'creator' ? "selected" : ""; ?> value="creator">Creator</option>
+            <option <?php echo $roles == 'contributor' ? "selected" : ""; ?> value="contributor">Contributor</option>
           </select>
         </div>
         <div class="form-group ">

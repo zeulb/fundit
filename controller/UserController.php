@@ -115,11 +115,11 @@ function getAllUser() {
   }
 
   $statement = "SELECT * FROM fundit_user";
-  $result = DBHandler::execute($statement, true);
+  $result = \DBHandler::execute($statement, true);
 
   $userList = array();
   foreach ($result as $res) {
-    $userList[] = new \User($res['username'], $res['name'], $res['roles'], $res['email'], $res['password']);
+    $userList[] = new \User($res['USERNAME'], $res['NAME'], $res['ROLES'], $res['EMAIL'], $res['PASSWORD']);
   }
 
   return $userList;
@@ -128,7 +128,7 @@ function getAllUser() {
 function canActiveUserModifyUser($username) {
   $activeUser = getActiveUser();
   $userToModify = getUser($username);
-  return $activeUser && $userToModify && $activeUser->canModifyUser($username);
+  return $activeUser && $userToModify && $activeUser->canModifyUser($userToModify);
 }
 
 function canActiveUserModifyProject($projectId) {

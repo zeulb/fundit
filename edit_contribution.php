@@ -79,7 +79,7 @@
         </script>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
         <a href="delete_contribution.php?id=<?php echo $contribution->getId() ?>">
-          <button class="btn btn-warning" type="button">Delete</button>
+          <button class="btn btn-danger" type="button">Delete</button>
         </a>
       </form>
       <br/>
