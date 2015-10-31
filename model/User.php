@@ -87,7 +87,7 @@ class User {
 
     $contributions = array();
     foreach ($result as $res) {
-      $res['TIMESTAMP'] = DateHelper\beautifyDateFromSql($res['TIMESTAMP']);
+      $res['TIMESTAMP'] = \DateHelper\beautifyDateFromSql($res['TIMESTAMP']);
       $contributions[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECT_ID'], $res['TIMESTAMP'], $res['AMOUNT']);
     }
 

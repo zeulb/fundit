@@ -2,7 +2,7 @@
 
 namespace DateHelper {
 
-include_once __DIR__ . '/../db/DBHelper.php';
+include_once __DIR__ . '/../db/DBHandler.php';
 
 date_default_timezone_set("Asia/Singapore");
 

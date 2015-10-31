@@ -8,10 +8,8 @@ class Roles {
   public static $CONTRIBUTOR = "contributor";
 
   public static function getUserList($roles) {
-    $dbHandler = DBHandler::getInstance();
-
     $statement = "SELECT * FROM fundit_user WHERE roles='{$roles}'";
-    $result = $dbHandler->execute($statement, true);
+    $result = DBHandler::execute($statement, true);
 
     $users = array();
     foreach ($result as $res) {

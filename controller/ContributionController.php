@@ -9,7 +9,7 @@ function createNewContribution($projectId, $amount) {
   date_default_timezone_set("Asia/Singapore");
 
   $contributor = $_SESSION['username'];
-  $contributionDate = DateHelper\convertToSqlFormatFromUnixTime(time());
+  $contributionDate = \DateHelper\convertToSqlFormatFromUnixTime(time());
   $amount = floatval($amount);
   $projectId = intval($projectId);
 
