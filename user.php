@@ -15,7 +15,9 @@
   }
 
   $contributionList = $user->getContributionList();
-  $counter = 0;
+  $projectList = $user->getProjectList();
+  $counterContribution = 0;
+  $counterProject = 0;
 ?>
 
 <?php ob_start(); ?>
@@ -44,6 +46,42 @@
           </tr>
         </tbody>
       </table>
+      <h3 class="text-left"> Project started</h3>
+      <table class="table text-left table-hover">
+      <thead>
+        <tr>
+          <th> # </th>
+          <th> Project </th>
+          <th> Progress </th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($projectList as $project) {
+          $counterProject++;
+        ?>
+        <tr>
+          <td>
+            <?php echo $counterProject; ?>
+          </td>
+          <td>
+            <a href="project.php?id=<?php echo $project->getId(); ?>">
+            <?php echo $project->getTitle(); ?>
+            </a>
+          </td>
+          <td>
+            <?php 
+              echo "$".$project->getTotalContribution();
+            ?>
+            /
+            <?php 
+              echo "$".$project->getGoal();
+            ?>
+          </td>
+        </tr>
+        <?php }
+        ?>
+      </tbody>
+      </table>
       <h3 class="text-left"> Contribution </h3>
       <table class="table text-left table-hover">
       <thead>
@@ -56,13 +94,13 @@
       </thead>
       <tbody>
         <?php foreach ($contributionList as $contribution) {
-          $counter++;
+          $counterContribution++;
           $projectId = $contribution->getProjectId();
           $project = ProjectController\getProject($projectId);
         ?>
         <tr>
           <td>
-            <?php echo $counter; ?>
+            <?php echo $counterContribution; ?>
           </td>
           <td>
             <?php echo $contribution->getDate(); ?>
