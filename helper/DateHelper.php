@@ -12,6 +12,11 @@ function beautifyDateFromSql($dateFromSql) {
   return $result;
 }
 
+function beautifyDateFromUnixTime($unixTime) {
+  $result = date('j-M-y h.i.s.u A', $unixTime);
+  $result = $result->format('d M Y h:i A');
+}
+
 function convertToSqlFormatFromString($beautifulDate) {
   $unixTime = strtotime($beautifulDate);
   return convertToSqlFormatFromUnixTime($unixTime);

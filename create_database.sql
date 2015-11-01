@@ -24,6 +24,7 @@ CREATE TABLE fundit_project (
   goal REAL NOT NULL,
   deadline TIMESTAMP NOT NULL,
   category VARCHAR(32) NOT NULL,
+  created_date TIMESTAMP NOT NULL,
   FOREIGN KEY (owner) REFERENCES fundit_user(username) ON DELETE CASCADE,
   FOREIGN KEY (category) REFERENCES fundit_category(category) ON DELETE CASCADE
   --CONSTRAINT project_creator CHECK (EXISTS (SELECT * FROM fundit_user fu WHERE fu.username = owner AND (fu.roles = 'creator' or fu.roles = 'admin')))

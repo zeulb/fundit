@@ -128,7 +128,8 @@ class User {
     $projectList = array();
     foreach ($result as $res) {
       $res['DEADLINE'] = \DateHelper\beautifyDateFromSql($res['DEADLINE']);
-      $projectList[] = new Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE'], $res['CATEGORY']);
+      $res['CREATED_DATE'] = \DateHelper\beautifyDateFromSql($res['CREATED_DATE']);
+      $projectList[] = new Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE'], $res['CATEGORY'], $res['CREATED_DATE']);
     }
 
     return $projectList;

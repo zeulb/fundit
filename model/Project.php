@@ -13,6 +13,7 @@ class Project {
   private $goal;
   private $deadline;
   private $category;
+  private $createdDate;
 
   private function save() {
     $this->deadline = \DateHelper\convertToSqlFormatFromString($this->deadline);
@@ -21,7 +22,7 @@ class Project {
     return DBHandler::execute($statement, false);
   }
 
-  public function __construct($id, $owner, $title, $description, $goal, $deadline, $category) {
+  public function __construct($id, $owner, $title, $description, $goal, $deadline, $category, $createdDate) {
     $this->id = $id;
     $this->owner = $owner;
     $this->title = $title;
@@ -29,6 +30,7 @@ class Project {
     $this->goal = $goal;
     $this->deadline = $deadline;
     $this->category = $category;
+    $this->createdDate = $createdDate;
   }
 
   public function getId() {
@@ -53,6 +55,10 @@ class Project {
 
   public function getDeadline() {
     return $this->deadline;
+  }
+
+  public function getCreatedDate() {
+    return $this->createdDate;
   }
 
   public function getCategory() {
