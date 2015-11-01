@@ -3,6 +3,7 @@
   $current_page = 'Projects';
   include_once "controller/UserController.php";
   include_once "controller/ProjectController.php";
+  include_once "controller/CategoryController.php";
 
   $default_page = "recent";
 
@@ -12,9 +13,6 @@
     $page = $_GET['page'];
   }
 
-  if ($page != 'recent' && $page != 'popular' && $page != 'manager') {
-    $page = $default_page;
-  }
 
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -30,77 +28,106 @@
 <?php ob_start(); ?>
   <br/>
   <?php if (!isset($project)) { ?>
-  
-  <div class="inner cover container">
-    <div class="row">
-      <?php
-        include_once 'template/message.php';
-      ?>
-      <div class="row"> 
-        <ul class="nav nav-pills">
-          <li role="presentation" class="<?php echo $page == 'recent' ? "active" : "" ?>"><a href="project.php">Recent</a></li>
-          <li role="presentation" class="<?php echo $page == 'popular' ? "active" : "" ?>"><a href="project.php?page=popular">Popular</a></li>
-          
-          <?php
-            if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
-          ?>
-          <li role="presentation" style="float:right;"><a href="new_project.php">Create Project</a></li>
-          <li role="presentation" class="<?php echo $page == 'manager' ? "active" : "" ?>" style="float:right;"><a href="project.php?page=manager">Managed Project</a></li>
-          <?php
-            }
-          ?>
-        </ul>
-      </div>
-    </div>
-    <?php
-    echo $page;
-    if ($page == "recent") {
-      $projectList = ProjectController\getAllProject();
-    } else if ($page == "popular") {
-      $projectList = ProjectController\getAllProjectPopular();
-    } else if ($page == "manager") {
-      $projectList = ProjectController\getActiveUserProject();
-    }
-    foreach($projectList as $project) {?>
-    <div class="row">
-      <hr/>
-      <div class="col-md-6">
-        <h4 class = "text-left"> <?php echo $project->getTitle(); ?> </h4>
-        <p class = "text-left">
-        by <a href="user.php?name=<?php echo $project->getOwner(); ?>">
+    <div class="inner cover container">
+      <div class="row">
         <?php
-        $username = $project->getOwner();
-        echo UserController\getUser($username)->getName(); ?>
-        </a>
-        ·
-        <?php echo $project->getContributorCount(); ?> funder(s)
-        </p>
-      </div>
-      <div class="col-md-6" align="right">
-        <h4 class = "text-right"> $<?php echo $project->getTotalContribution(); ?> </h4>
-        <?php
-          if (UserController\canActiveUserModifyProject($project->getId())) {
-            ?>
-            <a href="edit_project.php?id=<?php echo $project->getId() ?>">
-              <button type="button" class="btn btn-info">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </button>
-            </a>
-            <?php
-          } 
-
+          include_once 'template/message.php';
         ?>
-        <a href="project.php?id=<?php echo $project->getId() ?>">
-          <button type="button" class="btn btn-warning">Fund!</button>
-        </a>
-        
-         
+        <div class="row"> 
+          <ul class="nav nav-pills">
+            <li role="presentation" class="<?php echo $page == 'recent' ? "active" : "" ?>"><a href="project.php">Recent</a></li>
+            <li role="presentation" class="<?php echo $page == 'popular' ? "active" : "" ?>"><a href="project.php?page=popular">Popular</a></li>
+            <li role="presentation" class="<?php echo ($page != 'recent' && $page != 'popular' && $page != 'manager') ? "active" : "" ?>"><a href="project.php?page=category">Category</a></li>
+            
+            <?php
+              if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
+            ?>
+            <li role="presentation" style="float:right;"><a href="new_project.php">Create Project</a></li>
+            <li role="presentation" class="<?php echo $page == 'manager' ? "active" : "" ?>" style="float:right;"><a href="project.php?page=manager">Managed Project</a></li>
+            <?php
+              }
+            ?>
+          </ul>
+        </div>
       </div>
-      
+      <?php
+        if ($page == "category") {
+          ?>
+          <?php
+          $counter = 0; 
+            $categoryList = CategoryController\getAllCategories();
+            foreach($categoryList as $category) {
+              $counter++;
+              if ($counter%3==1) echo "<br/><br/>";
+          ?>
+          
+          <button type="button" class="btn btn-warning btn-lg">
+            <a href="project.php?page=<?php echo $category->getCategory();?>">
+            <?php echo $category->getCategory(); ?>
+            </a>
+          </button>&nbsp&nbsp&nbsp
 
-    </div>
-    <?php
-    }} else { ?>
+
+
+          <?php
+        }} else {
+      if ($page == "recent") {
+        $projectList = ProjectController\getAllProject();
+      } else if ($page == "popular") {
+        $projectList = ProjectController\getAllProjectPopular();
+      } else if ($page == "manager") {
+        $projectList = ProjectController\getActiveUserProject();
+      } else {
+        $projectList = CategoryController\getProjectWithCategory($page);
+      }
+      foreach($projectList as $project) {?>
+      <div class="row">
+        <hr/>
+        <div class="col-md-6">
+          <h4 class = "text-left"> <?php echo $project->getTitle(); ?>     
+          <button type="button" class="btn btn-success btn-xs">
+            <a href="project.php?page=<?php echo $project->getCategory();?>">
+              <?php echo $project->getCategory(); ?>
+            </a>
+          </button></h4>
+          <p class = "text-left">
+          by <a href="user.php?name=<?php echo $project->getOwner(); ?>">
+          <?php
+          $username = $project->getOwner();
+          echo UserController\getUser($username)->getName(); ?>
+          </a>
+          ·
+          <?php echo $project->getContributorCount(); ?> funder(s)
+          </p>
+          <p class="text-left">
+          
+          </p>
+        </div>
+        <div class="col-md-6" align="right">
+          <h4 class = "text-right"> $<?php echo $project->getTotalContribution(); ?> </h4>
+          <?php
+            if (UserController\canActiveUserModifyProject($project->getId())) {
+              ?>
+              <a href="edit_project.php?id=<?php echo $project->getId() ?>">
+                <button type="button" class="btn btn-info">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </button>
+              </a>
+              <?php
+            } 
+
+          ?>
+          <a href="project.php?id=<?php echo $project->getId() ?>">
+            <button type="button" class="btn btn-warning">Fund!</button>
+          </a>
+          
+           
+        </div>
+        
+
+      </div>
+      <?php
+      }}} else {?>
 
     <?php
     $contributionList = $project->getContributionList();

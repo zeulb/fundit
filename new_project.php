@@ -4,6 +4,7 @@
   $current_page = 'Projects';
   include_once("controller/UserController.php");
   include_once("controller/ProjectController.php");
+  include_once("controller/CategoryController.php");
 
   if (!UserController\isSignedIn() || !UserController\isCreator($_SESSION["username"])) {
     header("Location: index.php");
@@ -14,7 +15,8 @@
     $description = $_POST["description"];
     $goal = $_POST["goal"];
     $deadline = $_POST["deadline"];
-    if (ProjectController\createNewProject($title, $description, $goal, $deadline)) {
+    $selected = $_POST["category"];
+    if (ProjectController\createNewProject($title, $description, $goal, $deadline, $selected)) {
       $message = "New project added";
       $message_type = "success";
     } else {
@@ -37,6 +39,7 @@
         <ul class="nav nav-pills">
           <li role="presentation"><a href="project.php">Recent</a></li>
           <li role="presentation"><a href="project.php?page=popular">Popular</a></li>
+          <li role="presentation"><a href="project.php?page=category">Category</a></li>
           
           <?php
             if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
@@ -85,6 +88,17 @@
               </span>
               <input type='text' class="form-control" name="goal" />
           </div>
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" id="category" name="category">
+            <?php 
+              $categoryList = CategoryController\getAllCategories();
+              foreach($categoryList as $category) {
+            ?>
+            <option <?php echo $selected == $category->getCategory() ? "selected" : ""; ?> value="<?php echo $category->getCategory(); ?>"><?php echo $category->getCategory(); ?></option>
+            <?php } ?>
+          </select>
         </div>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
       </form>
