@@ -36,13 +36,13 @@
       <div class="row"> 
         <ul class="nav nav-pills">
           <li role="presentation"><a href="project.php">Recent</a></li>
-          <li role="presentation"><a href="#">Popular</a></li>
+          <li role="presentation"><a href="project.php?page=popular">Popular</a></li>
           
           <?php
             if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
           ?>
           <li role="presentation" class="active" style="float:right;"><a href="new_project.php">Create Project</a></li>
-          <li role="presentation" style="float:right;"><a href="#">Managed Project</a></li>
+          <li role="presentation" style="float:right;"><a href="project.php?page=manager">Managed Project</a></li>
           <?php
             }
           ?>
@@ -68,7 +68,7 @@
           </div>
         </div>
         <?php
-          $timestamp = date('d M Y g:i A');
+          $timestamp = date('d M Y h:i A');
         ?>
         <script type="text/javascript">
           $('#deadline').datetimepicker({

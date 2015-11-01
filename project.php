@@ -4,6 +4,18 @@
   include_once "controller/UserController.php";
   include_once "controller/ProjectController.php";
 
+  $default_page = "recent";
+
+  $page = $default_page;
+
+  if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+  }
+
+  if ($page != 'recent' && $page != 'popular' && $page != 'manager') {
+    $page = $default_page;
+  }
+
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $project = ProjectController\getProject($id);
@@ -12,6 +24,7 @@
       $message_type = "danger";
     }
   }
+
 ?>
 
 <?php ob_start(); ?>
@@ -25,14 +38,14 @@
       ?>
       <div class="row"> 
         <ul class="nav nav-pills">
-          <li role="presentation" class="active"><a href="project.php">Recent</a></li>
-          <li role="presentation"><a href="#">Popular</a></li>
+          <li role="presentation" class="<?php echo $page == 'recent' ? "active" : "" ?>"><a href="project.php">Recent</a></li>
+          <li role="presentation" class="<?php echo $page == 'popular' ? "active" : "" ?>"><a href="project.php?page=popular">Popular</a></li>
           
           <?php
             if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
           ?>
           <li role="presentation" style="float:right;"><a href="new_project.php">Create Project</a></li>
-          <li role="presentation" style="float:right;"><a href="#">Managed Project</a></li>
+          <li role="presentation" class="<?php echo $page == 'manager' ? "active" : "" ?>" style="float:right;"><a href="project.php?page=manager">Managed Project</a></li>
           <?php
             }
           ?>
@@ -40,7 +53,14 @@
       </div>
     </div>
     <?php
-    $projectList = ProjectController\getAllProject();
+    echo $page;
+    if ($page == "recent") {
+      $projectList = ProjectController\getAllProject();
+    } else if ($page == "popular") {
+      $projectList = ProjectController\getAllProjectPopular();
+    } else if ($page == "manager") {
+      $projectList = ProjectController\getActiveUserProject();
+    }
     foreach($projectList as $project) {?>
     <div class="row">
       <hr/>
@@ -134,11 +154,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-8">
             <p class="lead text-left"><?php echo $project->getDescription(); ?></p>
             
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <h3 class="text-right">
             <?php
             if (UserController\canActiveUserModifyProject($project->getId())) {

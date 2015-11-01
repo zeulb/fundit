@@ -65,19 +65,20 @@
       <table class="table borderless text-left" style="width:60%">
         <tbody>
           <tr>
-            <td >Name</td>
-            <td >:</td>
-            <td ><?php echo $user->getName(); ?></td>
+            <td class="lead" >Name:</td>
+            <td class="lead" ><?php echo $user->getName(); ?></td>
           </tr>
           <tr>
-            <td >Email</td>
-            <td >:</td>
-            <td ><?php echo $user->getEmail(); ?></td>
+            <td class="lead" >Email:</td>
+            <td class="lead" ><?php echo $user->getEmail(); ?></td>
           </tr>
           <tr>
-            <td >Roles</td>
-            <td >:</td>
-            <td ><?php echo $user->getRoles(); ?></td>
+            <td class="lead" >Role:</td>
+            <td class="lead" ><?php echo $user->getRoles(); ?></td>
+          </tr>
+          <tr>
+            <td class="lead" >Contribution:</td>
+            <td class="lead" ><?php echo "$".$user->getTotalContribution(); ?></td>
           </tr>
         </tbody>
       </table>
