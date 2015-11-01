@@ -3,6 +3,7 @@
   $current_page = 'Projects';
   include_once("controller/UserController.php");
   include_once("controller/ProjectController.php");
+  include_once("controller/CategoryController.php");
 
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -16,11 +17,13 @@
       $description = $_POST["description"];
       $goal = $_POST["goal"];
       $deadline = $_POST["deadline"];
+      $selected = $_POST["category"];
 
       $project->setTitle($title);
       $project->setDescription($description);
       $project->setGoal($goal);
       $project->setDeadline($deadline);
+      $project->setCategory($selected);
 
       $message = "Project updated";
       $message_type = "success";
@@ -30,6 +33,7 @@
       $description = $project->getDescription();
       $goal = $project->getGoal();
       $deadline = $project->getDeadline();
+      $selected= $project->getCategory();
     }
   } else {
     $message = "Project with id ".$id." not found";
@@ -105,6 +109,17 @@
               </span>
               <input type='text' class="form-control" name="goal" value="<?php echo $goal; ?>"/>
           </div>
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" id="category" name="category">
+            <?php 
+              $categoryList = CategoryController\getAllCategories();
+              foreach($categoryList as $category) {
+            ?>
+            <option <?php echo $selected == $category->getCategory() ? "selected" : ""; ?> value="<?php echo $category->getCategory(); ?>"><?php echo $category->getCategory(); ?></option>
+            <?php } ?>
+          </select>
         </div>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
         <a href="delete_project.php?id=<?php echo $project->getId() ?>">

@@ -157,7 +157,12 @@
             $username = $project->getOwner();
             echo UserController\getUser($username)->getName(); ?>
             </a>
-          </small></h1>
+          </small> 
+          <button type="button" class="btn btn-success btn-sm">
+            <a href="project.php?page=<?php echo $project->getCategory();?>">
+              <?php echo $project->getCategory(); ?>
+            </a>
+          </button></h1>
         </div>
         <div class="row">
           <div class="progress">
