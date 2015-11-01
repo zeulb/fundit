@@ -20,7 +20,7 @@
       $message = "New project added";
       $message_type = "success";
     } else {
-      $message = "Invalid date time format";
+      $message = "Enter numerical amount";
       $message_type = "danger";
     }
   }
@@ -71,7 +71,7 @@
           </div>
         </div>
         <?php
-          $timestamp = date('d M Y h:i A');
+          $timestamp = date('d M Y h:i A', time()+900);
         ?>
         <script type="text/javascript">
           $('#deadline').datetimepicker({

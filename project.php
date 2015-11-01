@@ -127,7 +127,7 @@
 
           ?>
           <a href="project.php?id=<?php echo $project->getId() ?>">
-            <button type="button" class="btn btn-warning">Fund!</button>
+            <button type="button" class="btn btn-warning">Details</button>
           </a>
           
            
@@ -213,9 +213,14 @@
             } 
 
           ?>
-              <a href="fund.php?id=<?php echo $project->getId() ?>">
-                <button type="button" class="btn btn-warning">Fund!</button>
-              </a>
+                <?php if ($project->isProjectOpen()) { ?>
+                <a href="fund.php?id=<?php echo $project->getId() ?>">
+                  <button type="button" class="btn btn-warning">Fund!</button>
+                </a>
+                <?php } else { ?>
+                  <button type="button" class="btn btn-danger">Project is over</button>
+                <?php } ?>
+              
             </h3>
             <h3 class = "text-left">
               <?php echo $project->getContributorCount() ?>

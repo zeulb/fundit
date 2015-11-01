@@ -16,13 +16,15 @@
     if (!isset($project)) {
       $message = "Project with id ".$id." not found";
       $message_type = "danger";
+    } else if (!$project->isProjectOpen()) {
+      $message = "Project funding is over";
+      $message_type = "danger";
     }
   }
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($project) && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $fund = $_POST["fund"];
     $comment = $_POST["message"];
-
     $contribution = ContributionController\createNewContribution($project->getId(), $fund, $comment);
     if (!isset($contribution)) {
       $message = "Please enter fund in number";
@@ -39,7 +41,7 @@
   <div class="inner cover container">
     <?php
       include_once 'template/message.php';
-      if (isset($project)) {
+      if ($message_type != 'danger') {
     ?>
     <div class="row"> 
         <ul class="nav nav-pills">
