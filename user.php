@@ -5,13 +5,28 @@
   include_once "controller/ProjectController.php";
   include_once "controller/ContributionController.php";
 
-  if (isset($_GET['name'])) {
-    $username = $_GET['name'];
-    $user = UserController\getUser($username);
+  $username = $_SESSION["username"];
+
+  if (isset($_GET["name"])) {
+    $username = $_GET["name"];
+  }
+
+  $page = "profile";
+
+  if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+  }
+
+  if ($page != "profile" && $page != "project" && $page != "contribution") {
+    $page = "profile";
   }
   
+  $user = UserController\getUser($username);
+
   if (!isset($user)) {
     header("Location: index.php");
+    $message = "No such user";
+    $message_type = "danger";
   }
 
   $contributionList = $user->getContributionList();
@@ -21,8 +36,28 @@
 ?>
 
 <?php ob_start(); ?>
+  <?php
+    if ($page == 'profile') {
+  ?>
   <br/>
   <div class="inner cover container">
+
+    <div class="row"> 
+      <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="user.php?name=<?php echo $user->getUsername(); ?>"><?php echo $user->getUsername(); ?></a></li>
+        <li role="presentation"><a href="user.php?page=project&name=<?php echo $user->getUsername(); ?>">Project started</a></li>
+        <li role="presentation"><a href="user.php?page=contribution&name=<?php echo $user->getUsername(); ?>">Contributions</a></li>
+
+        <?php
+          if (UserController\canActiveUserModifyUser($username)) {
+        ?>
+        <li role="presentation" style="float:right;"><a href="profile.php?name=<?php echo $user->getUsername(); ?>">Edit Profile</a></li>
+        <?php
+          }
+        ?>
+      </ul>
+    </div>
+
     <div class="row">
       <h1 class="page-header text-left"><?php echo $user->getUsername(); ?></h1>
     </div>
@@ -46,7 +81,27 @@
           </tr>
         </tbody>
       </table>
-      <h3 class="text-left"> Project started</h3>
+    </div>
+  </div>
+  <?php } else if ($page == "project") {?>
+  <br/>
+  <div class="inner cover container">
+
+    <div class="row"> 
+      <ul class="nav nav-pills">
+        <li role="presentation"><a href="user.php?name=<?php echo $user->getUsername(); ?>"><?php echo $user->getUsername(); ?></a></li>
+        <li role="presentation" class="active"><a href="user.php?page=project&name=<?php echo $user->getUsername(); ?>">Project started</a></li>
+        <li role="presentation"><a href="user.php?page=contribution&name=<?php echo $user->getUsername(); ?>">Contributions</a></li>
+
+        <?php
+          if (UserController\canActiveUserModifyUser($username)) {
+        ?>
+        <li role="presentation" style="float:right;"><a href="profile.php?name=<?php echo $user->getUsername(); ?>">Edit Profile</a></li>
+        <?php
+          }
+        ?>
+      </ul>
+    </div>
       <table class="table text-left table-hover">
       <thead>
         <tr>
@@ -82,7 +137,28 @@
         ?>
       </tbody>
       </table>
-      <h3 class="text-left"> Contribution </h3>
+      
+    </div>
+  </div>
+  <?php } else if ($page == 'contribution') {?>
+  <br/>
+  <div class="inner cover container">
+
+    <div class="row"> 
+      <ul class="nav nav-pills">
+        <li role="presentation"><a href="user.php?name=<?php echo $user->getUsername(); ?>"><?php echo $user->getUsername(); ?></a></li>
+        <li role="presentation"><a href="user.php?page=project&name=<?php echo $user->getUsername(); ?>">Project started</a></li>
+        <li role="presentation" class="active"><a href="user.php?page=contribution&name=<?php echo $user->getUsername(); ?>">Contributions</a></li>
+
+        <?php
+          if (UserController\canActiveUserModifyUser($username)) {
+        ?>
+        <li role="presentation" style="float:right;"><a href="profile.php?name=<?php echo $user->getUsername(); ?>">Edit Profile</a></li>
+        <?php
+          }
+        ?>
+      </ul>
+    </div>
       <table class="table text-left table-hover">
       <thead>
         <tr>
@@ -135,6 +211,8 @@
       </table>
     </div>
   </div>
+  <?php } ?>
+
 <?php
   $content = ob_get_clean();
   include_once 'template/skeleton.php';

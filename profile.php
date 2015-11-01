@@ -47,26 +47,41 @@
         }   
       }
     }
+  } 
+
+  if (!isset($user)) {
+    $message = "No such username";
+    $message_type = "danger";
   }
 ?>
 
 <?php ob_start(); ?>
   <br/>
   <div class="inner cover container">
-    <div class="row">
-
-      <?php
+    <?php
         include_once 'template/message.php';
         if ($message_type != 'danger') {
+          echo $message;
+          echo $message_type;
       ?>
-      <div class="row">
-        
-        <h1 class="page-header text-left">Edit Profile 
-        <a href="user.php?name=<?php echo $user->getUsername(); ?>">
-        <small><?php echo $user->getUsername() ?></small>
-        </a>
-        </h1>
-      </div>
+
+    <div class="row"> 
+      <ul class="nav nav-pills">
+        <li role="presentation"><a href="user.php?name=<?php echo $user->getUsername(); ?>"><?php echo $user->getUsername(); ?></a></li>
+        <li role="presentation"><a href="#">Project started</a></li>
+        <li role="presentation"><a href="#">Contributions</a></li>
+
+        <?php
+          if (UserController\canActiveUserModifyUser($username)) {
+        ?>
+        <li role="presentation" class="active" style="float:right;"><a href="profile.php?name=<?php echo $user->getUsername(); ?>">Edit Profile</a></li>
+        <?php
+          }
+        ?>
+      </ul>
+    </div>
+
+    <div class="row">
       <form method="post" class="form" role="form">
         <div class="form-group ">
           <label class="control-label" for="fullname">Full Name</label>
