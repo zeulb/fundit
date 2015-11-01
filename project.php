@@ -53,12 +53,21 @@
       <?php
         if ($page == "category") {
           ?>
+          <p class="text-right">
+          <?php if (UserController\isAdmin($_SESSION["username"])) { ?>
+          <button type="button" class="btn btn-primary">
+            <a href="new_category.php">Add Category
+            </a>
+          </button>
+          </p>
+          <?php } ?>
+
           <?php
           $counter = 0; 
             $categoryList = CategoryController\getAllCategories();
             foreach($categoryList as $category) {
+              if ($counter%3==0 && $counter > 0) echo "<br/><br/>";
               $counter++;
-              if ($counter%3==1) echo "<br/><br/>";
           ?>
           
           <button type="button" class="btn btn-warning btn-lg">
@@ -157,7 +166,7 @@
             $username = $project->getOwner();
             echo UserController\getUser($username)->getName(); ?>
             </a>
-          </small> 
+          </small>
           <button type="button" class="btn btn-success btn-sm">
             <a href="project.php?page=<?php echo $project->getCategory();?>">
               <?php echo $project->getCategory(); ?>
