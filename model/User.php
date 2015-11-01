@@ -59,11 +59,19 @@ class User {
   }
 
   public function setEmail($email) {
-    $oldEmail = $this->email;
-    $this->email = $email;
-    $success = $this->save();
-    if (!$success) {
-      $this->email = $oldEmail;
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) === true) {
+      return null;
+      $oldEmail = $this->email;
+      $this->email = $email;
+      $success = $this->save();
+      if (!$success) {
+        $this->email = $oldEmail;
+        return null;
+      } else {
+        return true;
+      }
+    } else {
+      return null;
     }
   }
 

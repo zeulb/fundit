@@ -40,13 +40,17 @@ function getSignedInUser() {
 function createNewUser($username, $name, $roles, $email, $password) {
   $password = md5($password);
 
-  $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ('{$username}', '{$name}', '{$roles}', '{$email}', '{$password}')";
-  $r = \DBHandler::execute($statement, false);
-
-  if ($r) {
-    return new \User($username, $name, $roles, $email, $password);
-  } else {
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL) === true) {
     return null;
+  } else {
+    $statement = "INSERT INTO fundit_user (username, name, roles, email, password) VALUES ('{$username}', '{$name}', '{$roles}', '{$email}', '{$password}')";
+    $r = \DBHandler::execute($statement, false);
+
+    if ($r) {
+      return new \User($username, $name, $roles, $email, $password);
+    } else {
+      return null;
+    }
   }
 }
 
