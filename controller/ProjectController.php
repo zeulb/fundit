@@ -71,7 +71,7 @@ function getAllProject($sortByColumn = null) {
 }
 
 function getAllProjectPopular() {
-  $statement = "SELECT p.title FROM fundit_project p LEFT OUTER JOIN (SELECT project_id AS pid, SUM(AMOUNT) as total FROM fundit_contribution GROUP BY project_id) s ON p.id = s.pid ORDER BY COALESCE(total, 0) DESC;";
+  $statement = "SELECT p.* FROM fundit_project p LEFT OUTER JOIN (SELECT project_id AS pid, SUM(AMOUNT) as total FROM fundit_contribution GROUP BY project_id) s ON p.id = s.pid ORDER BY COALESCE(total, 0) DESC";
 
   $result = \DBHandler::execute($statement, true);
 
