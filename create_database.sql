@@ -35,7 +35,7 @@ CREATE TABLE fundit_contribution (
   project_id INT NOT NULL,
   timestamp TIMESTAMP NOT NULL,
   amount REAL NOT NULL,
-  comment VARCHAR(140) NOT NULL,
+  message VARCHAR(140) NOT NULL,
   FOREIGN KEY (contributor) REFERENCES fundit_user(username) ON DELETE CASCADE,
   FOREIGN KEY (project_id) REFERENCES fundit_project(id) ON DELETE CASCADE,
   CONSTRAINT positive_amount CHECK (amount > 0.0)
