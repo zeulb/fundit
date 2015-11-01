@@ -29,7 +29,8 @@ CREATE TABLE fundit_project (
   category VARCHAR(32) NOT NULL,
   created_date TIMESTAMP NOT NULL,
   FOREIGN KEY (owner) REFERENCES fundit_user(username) ON DELETE CASCADE,
-  FOREIGN KEY (category) REFERENCES fundit_category(category) ON DELETE CASCADE
+  FOREIGN KEY (category) REFERENCES fundit_category(category) ON DELETE CASCADE,
+  CONSTRAINT created_date_before_deadline CHECK (created_date < deadline)
   --CONSTRAINT project_creator CHECK (EXISTS (SELECT * FROM fundit_user fu WHERE fu.username = owner AND (fu.roles = 'creator' or fu.roles = 'admin')))
 );
 
@@ -64,4 +65,4 @@ INSERT INTO fundit_category VALUES ('Food');
 INSERT INTO fundit_category VALUES ('Technology');
 INSERT INTO fundit_category VALUES ('Music');
 INSERT INTO fundit_category VALUES ('Art');
-INSERT INTO fundit_project (id, owner, title, description, goal, deadline, category, created_date) VALUES (0, 'creator', 'Sample Project', 'Sample Project', 999, '1-NOV-15 02.23.04.000000000 AM', 'Others', '30-NOV-15 02.23.04.000000000 AM');
+INSERT INTO fundit_project (id, owner, title, description, goal, deadline, category, created_date) VALUES (0, 'creator', 'Sample Project', 'Sample Project', 999, '30-NOV-15 02.23.04.000000000 AM', 'Others', '1-NOV-15 02.23.04.000000000 AM');
