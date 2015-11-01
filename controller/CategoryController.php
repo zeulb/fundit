@@ -2,7 +2,7 @@
 
 namespace CategoryController {
 
-include_once __DIR__ . '../db/DBHandler.php';
+include_once __DIR__ . '/../db/DBHandler.php';
 
 function getProjectWithCategory($category) {
   $statement = "SELECT * FROM fundit_project WHERE category='{$category}'";
