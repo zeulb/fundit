@@ -11,9 +11,9 @@ class Contribution {
   private $amount;
 
   private function save() {
-    $timestamp = \DateHelper\convertToSqlFormatFromString($timestamp);
-    $statement = "UPDATE fundit_contribution SET contributor='{$this->contributor}', project_id={$this->projectId}, amount={$this->amount}, timestamp='{$timestamp}' WHERE id={$this->id}";
-    $timestamp = \DateHelper\beautifyDateFromSql($timestamp);
+    $this->timestamp = \DateHelper\convertToSqlFormatFromString($this->timestamp);
+    $statement = "UPDATE fundit_contribution SET contributor='{$this->contributor}', project_id={$this->projectId}, amount={$this->amount}, timestamp='{$this->timestamp}' WHERE id={$this->id}";
+    $this->timestamp = \DateHelper\beautifyDateFromSql($this->timestamp);
     return DBHandler::execute($statement, false);
   }
 

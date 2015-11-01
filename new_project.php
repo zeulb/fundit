@@ -50,9 +50,14 @@
               </span>
           </div>
         </div>
+        <?php
+          $timestamp = date('d M Y g:i A');
+        ?>
         <script type="text/javascript">
           $('#deadline').datetimepicker({
-            format: 'DD MMM YYYY hh:mm A'
+            format: 'DD MMM YYYY hh:mm A',
+            minDate: '<?php echo $timestamp; ?>'
+            
           });
         </script>
         
