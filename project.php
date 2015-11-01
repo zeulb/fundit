@@ -230,7 +230,13 @@
               <?php echo "collected of $".$project->getGoal()." goal"; ?>
             </p>
             <h4 class = "text-left">
-              <?php echo $project->getDeadline(); ?>
+            Created
+              <small><?php echo $project->getCreatedDate(); ?></small>
+            </h4>
+
+            <h4 class = "text-left">
+            Deadline 
+              <small><?php echo $project->getDeadline(); ?></small>
             </h4>
           </div>
         </div>
