@@ -207,7 +207,11 @@
         ?>
         <div class="row">
           <div class="col-md-10">
-          <h4 class="text-left"><?php echo $contributor->getName()." on ". $contribution->getDate() ?></h4>
+          <h4 class="text-left">
+          <a href="user.php?name=<?php echo $contributor->getUsername() ?>">
+          <?php echo $contributor->getName(); ?></a>
+          <?php echo " on ". $contribution->getDate(); ?>
+          </h4>
           <p class="text-left"><?php echo $contribution->getComment() ?></p>
           <p class="text-left"><?php echo "Contribution: $".$contribution->getAmount(); ?>
           </p>
