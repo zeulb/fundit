@@ -84,6 +84,15 @@ function getAllProjectPopular() {
   return $projects;
 }
 
+function getActiveUserProject() {
+  $activeUser = \UserController\getSignedInUser();
+  if (!isset($activeUser)) {
+    return null;
+  } else {
+    return $activeUser->getProjectList();
+  }
+}
+
 function removeProject($projectId) {
   if (\UserController\canActiveUserModifyProject($projectId)) {
     $statement = "DELETE FROM fundit_project WHERE project_id = {$projectId}";
