@@ -9,20 +9,22 @@ class Contribution {
   private $projectId;
   private $timestamp;
   private $amount;
+  private $comment;
 
   private function save() {
     $this->timestamp = \DateHelper\convertToSqlFormatFromString($this->timestamp);
-    $statement = "UPDATE fundit_contribution SET contributor='{$this->contributor}', project_id={$this->projectId}, amount={$this->amount}, timestamp='{$this->timestamp}' WHERE id={$this->id}";
+    $statement = "UPDATE fundit_contribution SET contributor='{$this->contributor}', project_id={$this->projectId}, amount={$this->amount}, timestamp='{$this->timestamp}', comment='{$this->comment}' WHERE id={$this->id}";
     $this->timestamp = \DateHelper\beautifyDateFromSql($this->timestamp);
     return DBHandler::execute($statement, false);
   }
 
-  public function __construct($id, $contributor, $projectId, $timestamp, $amount) {
+  public function __construct($id, $contributor, $projectId, $timestamp, $amount, $comment) {
     $this->id = $id;
     $this->contributor = $contributor;
     $this->projectId = $projectId;
     $this->timestamp = $timestamp;
     $this->amount = $amount;
+    $this->comment = $comment;
   }
 
   public function getId() {
@@ -45,6 +47,10 @@ class Contribution {
     return $this->amount;
   }
 
+  public function getComment() {
+    return $this->comment;
+  }
+
   public function setContributor($contributor) {
     $this->contributor = $contributor;
     return $this->save();
@@ -63,6 +69,11 @@ class Contribution {
   public function setAmount($amount) {
     $this->amount = $amount;
     return $this->save();
+  }
+
+  public function setComment($comment) {
+    $this->comment = $comment;
+    return $this->save;
   }
 
 }

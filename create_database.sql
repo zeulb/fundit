@@ -20,7 +20,7 @@ CREATE TABLE fundit_project (
   id INT PRIMARY KEY,
   owner VARCHAR(20) NOT NULL,
   title VARCHAR(64) NOT NULL,
-  description VARCHAR(64) NOT NULL,
+  description VARCHAR(1000) NOT NULL,
   goal REAL NOT NULL,
   deadline TIMESTAMP NOT NULL,
   FOREIGN KEY (owner) REFERENCES fundit_user(username) ON DELETE CASCADE
@@ -35,6 +35,7 @@ CREATE TABLE fundit_contribution (
   project_id INT NOT NULL,
   timestamp TIMESTAMP NOT NULL,
   amount REAL NOT NULL,
+  comment VARCHAR(140) NOT NULL,
   FOREIGN KEY (contributor) REFERENCES fundit_user(username) ON DELETE CASCADE,
   FOREIGN KEY (project_id) REFERENCES fundit_project(id) ON DELETE CASCADE,
   CONSTRAINT positive_amount CHECK (amount > 0.0)

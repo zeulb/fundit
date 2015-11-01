@@ -6,7 +6,7 @@ include_once __DIR__ . '/../db/DBHandler.php';
 include_once __DIR__ . '/../helper/DateHelper.php';
 include_once __DIR__ . '/UserController.php';
 
-function createNewContribution($projectId, $amount) {
+function createNewContribution($projectId, $amount, $comment) {
   date_default_timezone_set("Asia/Singapore");
 
   $contributor = $_SESSION['username'];
@@ -18,13 +18,13 @@ function createNewContribution($projectId, $amount) {
   $result = \DBHandler::execute($statement, true);
   $id = $result[0]['NEXTVAL'];
 
-  $statement = "INSERT INTO fundit_contribution (id, contributor, project_id, timestamp, amount) VALUES ({$id}, '{$contributor}', {$projectId}, '{$contributionDate}', {$amount})";
+  $statement = "INSERT INTO fundit_contribution (id, contributor, project_id, timestamp, amount, comment) VALUES ({$id}, '{$contributor}', {$projectId}, '{$contributionDate}', {$amount}, '{$comment}')";
   $result = \DBHandler::execute($statement, false);
 
   if (!$result) {
     return null;
   } else {
-    return new \Contribution($id, $contributor, $projectId, $contributionDate, $amount);
+    return new \Contribution($id, $contributor, $projectId, $contributionDate, $amount, $comment);
   }
 }
 
