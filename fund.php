@@ -36,14 +36,27 @@
 <?php ob_start(); ?>
   <br/>
   <div class="inner cover container">
+    <?php
+      include_once 'template/message.php';
+      if (isset($project)) {
+    ?>
+    <div class="row"> 
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="project.php?id=<?php echo $project->getId(); ?>"><?php echo $project->getTitle(); ?></a></li>
+          <li role="presentation"><a href="project.php">Recent</a></li>
+          <li role="presentation"><a href="#">Popular</a></li>
+
+          <?php
+            if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
+          ?>
+          <li role="presentation" style="float:right;"><a href="new_project.php">Create Project</a></li>
+          <li role="presentation" style="float:right;"><a href="#">Managed Project</a></li>
+          <?php
+            }
+          ?>
+        </ul>
+      </div>
     <div class="row">
-
-      <?php
-        include_once 'template/message.php';
-      ?>
-
-      <?php
-        if (isset($project)) { ?>
       
       <form method="post" class="form" role="form">
         <h1 class="page-header text-left"><?php echo $project->getTitle(); ?> </h1>
@@ -59,10 +72,11 @@
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
       </form>
       <br/>
-      <?php
+      
+    </div>
+    <?php
         }
       ?>
-    </div>
   </div>
 <?php
   $content = ob_get_clean();

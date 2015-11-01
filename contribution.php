@@ -21,6 +21,11 @@
           $contributionList = ContributionController\getAllContribution();
           $counter = 0;
       ?>
+      <div class="row">
+        
+        <h1 class="page-header text-left">Contribution List
+        </h1>
+      </div>
 
       <table class="table text-left table-hover">
       <thead>
@@ -31,7 +36,7 @@
           <th> Project </th>
           <th> Timestamp </th>
           <th> Amount </th>
-          <th> Modify </th>
+          <th> Manage </th>
         </tr>
       </thead>
       <tbody>

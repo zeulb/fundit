@@ -59,6 +59,14 @@
         include_once 'template/message.php';
         if ($message_type != 'danger') {
       ?>
+      <div class="row">
+        
+        <h1 class="page-header text-left">Edit Profile 
+        <a href="user.php?name=<?php echo $user->getUsername(); ?>">
+        <small><?php echo $user->getUsername() ?></small>
+        </a>
+        </h1>
+      </div>
       <form method="post" class="form" role="form">
         <div class="form-group ">
           <label class="control-label" for="fullname">Full Name</label>

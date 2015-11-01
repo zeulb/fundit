@@ -47,12 +47,30 @@
 <?php ob_start(); ?>
   <br/>
   <div class="inner cover container">
-    <div class="row">
-
-      <?php
+    <?php
         include_once 'template/message.php';
         if (isset($project)) {
       ?>
+    <div class="row"> 
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="project.php?id=<?php echo $project->getId(); ?>"><?php echo $project->getTitle(); ?></a></li>
+          <li role="presentation"><a href="project.php">Recent</a></li>
+          <li role="presentation"><a href="#">Popular</a></li>
+
+          <?php
+            if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
+          ?>
+          <li role="presentation" style="float:right;"><a href="new_project.php">Create Project</a></li>
+          <li role="presentation" style="float:right;"><a href="#">Managed Project</a></li>
+          <?php
+            }
+          ?>
+        </ul>
+      </div>
+    
+    <div class="row">
+
+      
       <form method="post" class="form" role="form">
         <div class="form-group ">
           <label class="control-label" for="title">Title</label>

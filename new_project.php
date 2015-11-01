@@ -32,6 +32,23 @@
       <?php
         include_once 'template/message.php'
       ?>
+
+      <div class="row"> 
+        <ul class="nav nav-pills">
+          <li role="presentation"><a href="project.php">Recent</a></li>
+          <li role="presentation"><a href="#">Popular</a></li>
+          
+          <?php
+            if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
+          ?>
+          <li role="presentation" class="active" style="float:right;"><a href="new_project.php">Create Project</a></li>
+          <li role="presentation" style="float:right;"><a href="#">Managed Project</a></li>
+          <?php
+            }
+          ?>
+        </ul>
+      </div>
+
       <form method="post" class="form" role="form">
         <div class="form-group ">
           <label class="control-label" for="title">Title</label>

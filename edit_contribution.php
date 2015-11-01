@@ -43,7 +43,7 @@
   <br/>
   <div class="inner cover container">
     <div class="row">
-
+      
       <?php
         include_once 'template/message.php';
       ?>

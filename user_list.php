@@ -20,6 +20,11 @@
           $userList = UserController\getAllUser();
           $counter = 0;
       ?>
+      <div class="row">
+        
+        <h1 class="page-header text-left">User List
+        </h1>
+      </div>
 
       <table class="table text-left table-hover">
       <thead>
@@ -28,7 +33,7 @@
           <th> Username </th>
           <th> Name </th>
           <th> Roles </th>
-          <th> Modify </th>
+          <th> Manage </th>
         </tr>
       </thead>
       <tbody>

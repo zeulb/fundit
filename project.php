@@ -23,18 +23,21 @@
       <?php
         include_once 'template/message.php';
       ?>
-      <h4 class = "text-left">Recent</h4>
-      <?php
-      if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
-        ?>
-        <h4 class = "text-right">
-          <a href="new_project.php">
-            <button type="button" class="btn btn-info">New Project</button>
-          </a>
-        </h4>
-      <?php
-        }
-      ?>
+      <div class="row"> 
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="project.php">Recent</a></li>
+          <li role="presentation"><a href="#">Popular</a></li>
+          
+          <?php
+            if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
+          ?>
+          <li role="presentation" style="float:right;"><a href="new_project.php">Create Project</a></li>
+          <li role="presentation" style="float:right;"><a href="#">Managed Project</a></li>
+          <?php
+            }
+          ?>
+        </ul>
+      </div>
     </div>
     <?php
     $projectList = ProjectController\getAllProject();
@@ -83,7 +86,24 @@
     $contributionList = $project->getContributionList();
   ?>
       <div class="inner cover container">
+        <div class="row"> 
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="project.php?id=<?php echo $project->getId(); ?>"><?php echo $project->getTitle(); ?></a></li>
+          <li role="presentation"><a href="project.php">Recent</a></li>
+          <li role="presentation"><a href="#">Popular</a></li>
+
+          <?php
+            if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
+          ?>
+          <li role="presentation" style="float:right;"><a href="new_project.php">Create Project</a></li>
+          <li role="presentation" style="float:right;"><a href="#">Managed Project</a></li>
+          <?php
+            }
+          ?>
+        </ul>
+      </div>
         <div class="row">
+
           <h1 class="page-header text-left"><?php echo $project->getTitle(); ?>
           <small> by <a href="user.php?name=<?php echo $project->getOwner(); ?>">
             <?php
@@ -114,42 +134,50 @@
           </div>
         </div>
         <div class="row">
-          <h3 class="text-right">
-          <?php
-          if (UserController\canActiveUserModifyProject($project->getId())) {
-            ?>
-            <a href="edit_project.php?id=<?php echo $project->getId() ?>">
-              <button type="button" class="btn btn-info">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </button>
-            </a>
+          <div class="col-md-9">
+            <p class="lead text-left"><?php echo $project->getDescription(); ?></p>
+            
+          </div>
+          <div class="col-md-3">
+            <h3 class="text-right">
             <?php
-          } 
+            if (UserController\canActiveUserModifyProject($project->getId())) {
+              ?>
+              <a href="edit_project.php?id=<?php echo $project->getId() ?>">
+                <button type="button" class="btn btn-info">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Manage
+                </button>
+              </a>
+              <?php
+            } 
 
-        ?>
-            <a href="fund.php?id=<?php echo $project->getId() ?>">
-              <button type="button" class="btn btn-warning">Fund!</button>
-            </a>
-          </h3>
+          ?>
+              <a href="fund.php?id=<?php echo $project->getId() ?>">
+                <button type="button" class="btn btn-warning">Fund!</button>
+              </a>
+            </h3>
+            <h3 class = "text-left">
+              <?php echo $project->getContributorCount() ?>
+            </h3>
+            <p class="lead text-left">
+              <?php echo " funder(s)"; ?>
+            </p>
+            <h3 class = "text-left">
+              <?php echo "$".$project->getTotalContribution() ?>
+            </h3>
+            <p class="lead text-left">
+              <?php echo "collected of $".$project->getGoal()." goal"; ?>
+            </p>
+            <h4 class = "text-left">
+              <?php echo $project->getDeadline(); ?>
+            </h4>
+          </div>
         </div>
         <div class="row">
-          <p class="text-left"><?php echo $project->getDescription(); ?></p>
+          
         </div>
         <div class="row">
-          <table class="table borderless" style="width:60%">
-          <tbody>
-            <tr>
-              <td class="text-left">Total Fund</td>
-              <td class="text-left">:</td>
-              <td class="text-left"><?php echo $project->getTotalContribution(); ?></td>
-            </tr>
-            <tr>
-              <td class="text-left">Total Funders</td>
-              <td class="text-left">:</td>
-              <td class="text-left"><?php echo $project->getContributorCount(); ?></td>
-            </tr>
-          </tbody>
-          </table>
+          
         </div>
         <div class="row">
         <h3 class="text-left"> Contribution </h3>
