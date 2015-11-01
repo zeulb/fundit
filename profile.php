@@ -33,18 +33,20 @@
         $message = "Profile updated";
         $message_type = "success";
 
-        $user = UserController\getSignedInUser();
+        $user = UserController\getUser($username);
 
         if ($user->setEmail($email)) {
           $message = "Invalid email or email already exists";
           $message_type = "danger";
         } else {
-          $user->setPassword($password);
+          if (strlen($password) > 0) {
+            $user->setPassword($password);
+          }
           $user->setName($fullname);
           if (UserController\isAdmin($_SESSION["username"])) {
             $user->setRoles($roles);
           }
-        }   
+        }
       }
     }
   } 
@@ -107,11 +109,11 @@
         ?>
         <div class="form-group ">
           <label class="control-label" for="password">Password</label>
-          <input class="form-control" id="password" name="password" required type="password" value="">
+          <input class="form-control" id="password" name="password" type="password" value="">
         </div>
         <div class="form-group ">
           <label class="control-label" for="verify_password">Verify Password</label>
-          <input class="form-control" id="verify_password" name="verify_password" required type="password" value="">
+          <input class="form-control" id="verify_password" name="verify_password" type="password" value="">
         </div>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
       </form>
