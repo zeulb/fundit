@@ -43,21 +43,8 @@ function getProject($id) {
   }
 }
 
-function getAllProject($sortByColumn = null) {
+function getAllProject() {
   $statement = "SELECT * FROM fundit_project ORDER BY id DESC";
-
-  if (isset($sortByColumn) && \ArrayHelper\is_assoc($sortByColumn)) {
-    $statement .= " ORDER BY";
-    $first = true;
-    foreach ($sortByColumn as $key => $value) {
-      if (!$first) {
-        $statement .= ", {$key} {$value}";
-      } else {
-        $statement .= " {$key} {$value}";
-      }
-      $first = false;
-    }
-  }
 
   $result = \DBHandler::execute($statement, true);
 
