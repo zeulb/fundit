@@ -197,61 +197,37 @@
           
         </div>
         <div class="row">
+        <h3 class="text-left"> Comments </h3>
           
         </div>
-        <div class="row">
-        <h3 class="text-left"> Contribution </h3>
-        <table class="table text-left table-hover">
-        <thead>
-          <tr>
-            <th> # </th>
-            <th> Timestamp </th>
-            <th> Contributor </th>
-            <th> Amount </th>
-            <?php if (UserController\isAdmin($_SESSION["username"])) {
-              echo "<th> Modify </th>";
-              } ?>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($contributionList as $contribution) {
-            $counter++;
+        
+        <?php foreach ($contributionList as $contribution) {
             $contributorUsername = $contribution->getContributor();
             $contributor = UserController\getUser($contributorUsername);
-          ?>
-          <tr>
-            <td>
-              <?php echo $counter; ?>
-            </td>
-            <td>
-              <?php echo $contribution->getDate(); ?>
-            </td>
-            <td>
-              <a href="user.php?name=<?php echo $contributor->getUsername(); ?>">
-              <?php 
-                echo $contributor->getName();
-              ?>
-              </a>
-            </td>
-            <td>
-            $<?php echo $contribution->getAmount(); ?>
-            </td>
-            <?php if (UserController\canActiveUserModifyContribution($contribution->getId())) {?>
-              <td>
+        ?>
+        <div class="row">
+          <div class="col-md-10">
+          <h4 class="text-left"><?php echo $contributor->getName()." on ". $contribution->getDate() ?></h4>
+          <p class="text-left"><?php echo $contribution->getComment() ?></p>
+          <p class="text-left"><?php echo "Contribution: $".$contribution->getAmount(); ?>
+          </p>
+          </div>
+          <div class="col-md-2">
+          <p class="text-right">
+          <?php if (UserController\canActiveUserModifyContribution($contribution->getId())) {?>
               <a href="edit_contribution.php?id=<?php echo $contribution->getId() ?>">
-              <button type="button" class="btn btn-info btn-xs">
+              <button type="button" class="btn btn-info btn-sm">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </button>
             </a>
-            </td>
               <?php
               } ?>
-          </tr>
-          <?php }
-          ?>
-        </tbody>
-        </table>
+            </p>
+          </div>
         </div>
+        <hr>
+        <?php } ?>
+
       </div>
       
 

@@ -15,15 +15,18 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $fund = $_POST["fund"];
       $timestamp = $_POST["timestamp"];
+      $comment = $_POST["message"];
 
       $contribution->setAmount($fund);
       $contribution->setTimestamp($timestamp);
+      $contribution->setComment($comment);
 
       $message = "Contribution updated";
       $message_type = "success";
     } else {
       $fund = $contribution->getAmount();
       $timestamp = $contribution->getDate();
+      $comment = $contribution->getComment();
 
     }
   } else {
@@ -68,6 +71,10 @@
               <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
               </span>
+          </div>
+          <div class="form-group ">
+            <label class="control-label" for="message">Message</label>
+            <textarea class="form-control" rows="3" id="message" name="message"><?php echo $comment; ?></textarea>
           </div>
         </div>
         <script type="text/javascript">

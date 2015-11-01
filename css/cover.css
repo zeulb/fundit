@@ -187,3 +187,7 @@ button {
 .borderless th, .borderless td { 
      border-top: none !important; 
 }
+
+body {
+  word-wrap: break-word;
+}

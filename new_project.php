@@ -74,7 +74,6 @@
           $('#deadline').datetimepicker({
             format: 'DD MMM YYYY hh:mm A',
             minDate: '<?php echo $timestamp; ?>'
-            
           });
         </script>
         

@@ -73,7 +73,7 @@ class Contribution {
 
   public function setComment($message) {
     $this->message = $message;
-    return $this->save;
+    return $this->save();
   }
 
 }

@@ -21,8 +21,9 @@
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fund = $_POST["fund"];
+    $comment = $_POST["message"];
 
-    $contribution = ContributionController\createNewContribution($project->getId(), $fund);
+    $contribution = ContributionController\createNewContribution($project->getId(), $fund, $comment);
     if (!isset($contribution)) {
       $message = "Please enter fund in number";
       $message_type = "danger";
@@ -68,6 +69,10 @@
               </span>
               <input type='text' class="form-control" name="fund" />
           </div>
+        </div>
+        <div class="form-group ">
+          <label class="control-label" for="message">Message</label>
+          <textarea class="form-control" rows="3" id="message" name="message"></textarea>
         </div>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
       </form>

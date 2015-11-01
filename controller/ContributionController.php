@@ -40,7 +40,7 @@ function getAllContribution() {
   $contributionList = array();
   foreach ($result as $res) {
     $res['TIMESTAMP'] = \DateHelper\beautifyDateFromSql($res['TIMESTAMP']);
-    $contributionList[] = new \Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECT_ID'], $res['TIMESTAMP'], $res['AMOUNT'], $res['COMMENT']);
+    $contributionList[] = new \Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECT_ID'], $res['TIMESTAMP'], $res['AMOUNT'], $res['MESSAGE']);
   }
 
   return $contributionList;
@@ -55,7 +55,7 @@ function getContribution($contributionId) {
   } else {
     $result = $result[0];
     $result['TIMESTAMP'] = \DateHelper\beautifyDateFromSql($result['TIMESTAMP']);
-    return new \Contribution($result['ID'], $result['CONTRIBUTOR'], $result['PROJECT_ID'], $result['TIMESTAMP'], $result['AMOUNT'], $result['COMMENT']);
+    return new \Contribution($result['ID'], $result['CONTRIBUTOR'], $result['PROJECT_ID'], $result['TIMESTAMP'], $result['AMOUNT'], $result['MESSAGE']);
   }
 }
 
