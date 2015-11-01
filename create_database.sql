@@ -2,10 +2,13 @@ DROP TABLE fundit_contribution CASCADE CONSTRAINTS;
 DROP TABLE fundit_project CASCADE CONSTRAINTS;
 DROP TABLE fundit_user CASCADE CONSTRAINTS;
 DROP TABLE fundit_roles CASCADE CONSTRAINTS;
+DROP TABLE fundit_category CASCADE CONSTRAINTS;
 DROP SEQUENCE fundit_contribution_seq;
 DROP SEQUENCE fundit_project_seq;
 
 CREATE TABLE fundit_roles (name VARCHAR(11) PRIMARY KEY);
+
+CREATE TABLE fundit_category ( category VARCHAR(32) PRIMARY KEY );
 
 CREATE TABLE fundit_user (
   username VARCHAR(20) PRIMARY KEY,
@@ -46,8 +49,6 @@ CREATE TABLE fundit_contribution (
 
 CREATE SEQUENCE fundit_contribution_seq;
 
-CREATE TABLE fundit_category ( category VARCHAR(32) PRIMARY KEY );
-
 INSERT INTO fundit_roles VALUES('admin');
 INSERT INTO fundit_roles VALUES('contributor');
 INSERT INTO fundit_roles VALUES('creator');
@@ -55,10 +56,12 @@ INSERT INTO fundit_roles VALUES('creator');
 --SELECT * FROM fundit_user WHERE name = 'budi';
 --DELETE FROM fundit_user WHERE name = 'budi';
 --SELECT fundit_user_seq.CURRVAL FROM dual;
-INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('budi', 'budi_bola', 'budi@bola.com', 'admin', '529ca8050a00180790cf88b63468826a');
+INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('admin', 'Administrator', 'admin@admin.admin', 'admin', '098f6bcd4621d373cade4e832627b4f6');
+INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('creator', 'Creator', 'creator@creator.creator', 'creator', '098f6bcd4621d373cade4e832627b4f6');
+INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('contributor', 'Contributor', 'contributor@contributor.contributor', 'contributor', '098f6bcd4621d373cade4e832627b4f6');
 INSERT INTO fundit_category VALUES ('Others');
 INSERT INTO fundit_category VALUES ('Food');
 INSERT INTO fundit_category VALUES ('Technology');
 INSERT INTO fundit_category VALUES ('Music');
 INSERT INTO fundit_category VALUES ('Art');
-INSERT INTO fundit_project (id, owner, title, description, goal, deadline, category, created_date) VALUES (1, 'budi', 'bolpen untuk irvin', 'beliin bolpen', 800, '31-OCT-15 02.23.04.000000000 AM', 'Others', '31-OCT-15 02.23.04.000000000 AM');
+INSERT INTO fundit_project (id, owner, title, description, goal, deadline, category, created_date) VALUES (0, 'creator', 'Sample Project', 'Sample Project', 999, '1-NOV-15 02.23.04.000000000 AM', 'Others', '30-NOV-15 02.23.04.000000000 AM');

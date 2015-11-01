@@ -90,6 +90,10 @@ class Project {
     return $this->save();
   }
 
+  public function isProjectOpen() {
+    return time() <= strtotime($this->deadline);
+  }
+
   public function getContributionList() {
     $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id} ORDER BY timestamp DESC";
 
