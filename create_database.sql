@@ -59,7 +59,7 @@ INSERT INTO fundit_roles VALUES('creator');
 --SELECT fundit_user_seq.CURRVAL FROM dual;
 INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('admin', 'Administrator', 'admin@admin.admin', 'admin', '098f6bcd4621d373cade4e832627b4f6');
 INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('creator', 'Creator', 'creator@creator.creator', 'creator', '098f6bcd4621d373cade4e832627b4f6');
-INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('contributor', 'Contributor', 'contributor@contributor.contributor', 'contributor', '098f6bcd4621d373cade4e832627b4f6');
+INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('contributor', 'Contributor', 'contrib@contributor.contributor', 'contributor', '098f6bcd4621d373cade4e832627b4f6');
 INSERT INTO fundit_category VALUES ('Others');
 INSERT INTO fundit_category VALUES ('Food');
 INSERT INTO fundit_category VALUES ('Technology');
