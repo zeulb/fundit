@@ -44,7 +44,7 @@ function getProject($id) {
 }
 
 function getAllProject($sortByColumn = null) {
-  $statement = "SELECT * FROM fundit_project";
+  $statement = "SELECT * FROM fundit_project ORDER BY id DESC";
 
   if (isset($sortByColumn) && \ArrayHelper\is_assoc($sortByColumn)) {
     $statement .= " ORDER BY";
