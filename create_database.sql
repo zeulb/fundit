@@ -23,9 +23,11 @@ CREATE TABLE fundit_project (
   description VARCHAR(64) NOT NULL,
   goal REAL NOT NULL,
   deadline TIMESTAMP NOT NULL,
-  FOREIGN KEY (owner) REFERENCES fundit_user(username) ON DELETE CASCADE,
-  CONSTRAINT project_creator CHECK EXISTS (SELECT * FROM fundit_user fu WHERE fu.username = owner AND (fu.roles = 'creator' or fu.roles = 'admin'))
+  FOREIGN KEY (owner) REFERENCES fundit_user(username) ON DELETE CASCADE
+  --CONSTRAINT project_creator CHECK (EXISTS (SELECT * FROM fundit_user fu WHERE fu.username = owner AND (fu.roles = 'creator' or fu.roles = 'admin')))
 );
+
+CREATE SEQUENCE fundit_project_seq;
 
 CREATE TABLE fundit_contribution (
   id INT PRIMARY KEY,
@@ -48,4 +50,4 @@ INSERT INTO fundit_roles VALUES('creator');
 --DELETE FROM fundit_user WHERE name = 'budi';
 --SELECT fundit_user_seq.CURRVAL FROM dual;
 INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('budi', 'budi_bola', 'budi@bola.com', 'admin', '529ca8050a00180790cf88b63468826a');
-INSERT INTO fundit_project (owner, title, description, goal, deadline) VALUES ('budi', 'bolpen untuk irvin', 'beliin bolpen', 800, '31-OCT-15 02.23.04.000000000 AM');
+INSERT INTO fundit_project (id, owner, title, description, goal, deadline) VALUES (1, 'budi', 'bolpen untuk irvin', 'beliin bolpen', 800, '31-OCT-15 02.23.04.000000000 AM');

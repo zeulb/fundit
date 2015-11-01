@@ -78,7 +78,11 @@ class User {
 
     $result = DBHandler::execute($statement, true);
 
-    return $result[0]['SUM(AMOUNT)'];
+    if (isset($result[0]['SUM(AMOUNT)'])) {
+      return $result[0]['SUM(AMOUNT)'];
+    } else {
+      return 0.0;
+    }
   }
 
   public function getContributionList() {

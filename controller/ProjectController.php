@@ -6,6 +6,7 @@ include_once __DIR__ . '/../model/Project.php';
 include_once __DIR__ . '/../helper/DateHelper.php';
 include_once __DIR__ . '/../db/DBHandler.php';
 include_once __DIR__ . '/UserController.php';
+include_once __DIR__ . '/../helper/ArrayHelper.php';
 
 function createNewProject($title, $description, $goal, $deadline) {
   date_default_timezone_set("Asia/Singapore");
@@ -42,9 +43,21 @@ function getProject($id) {
   }
 }
 
-function getAllProject() {
-
+function getAllProject($sortBy = null) {
   $statement = "SELECT * FROM fundit_project";
+
+  if (isset($sortBy) && \ArrayHelper\is_assoc($sortBy)) {
+    $statement .= " ORDER BY";
+    $first = true;
+    foreach ($sortBy as $key => $value) {
+      if (!$first) {
+        $statement .= ", {$key} {$value}";
+      } else {
+        $statement .= " {$key} {$value}";
+      }
+      $first = false;
+    }
+  }
 
   $result = \DBHandler::execute($statement, true);
 
