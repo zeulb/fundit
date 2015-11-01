@@ -8,7 +8,7 @@ include_once __DIR__ . '/../db/DBHandler.php';
 include_once __DIR__ . '/UserController.php';
 include_once __DIR__ . '/../helper/ArrayHelper.php';
 
-function createNewProject($title, $description, $goal, $deadline) {
+function createNewProject($title, $description, $goal, $deadline, $category) {
   date_default_timezone_set("Asia/Singapore");
 
   $owner = $_SESSION['username'];
@@ -19,13 +19,13 @@ function createNewProject($title, $description, $goal, $deadline) {
   $r = \DBHandler::execute($statement, true);
   $id = $r[0]['NEXTVAL'];
 
-  $statement = "INSERT INTO fundit_project (id, owner, title, description, goal, deadline) VALUES({$id}, '{$owner}', '{$title}', '{$description}', {$goal}, '{$deadline}')";
+  $statement = "INSERT INTO fundit_project (id, owner, title, description, goal, deadline, category) VALUES({$id}, '{$owner}', '{$title}', '{$description}', {$goal}, '{$deadline}', '{$category}')";
   $r = \DBHandler::execute($statement, false);
   if (!$r) {
     return null;
   } else {
     $deadline = \DateHelper\beautifyDateFromSql($deadline);
-    return new \Project($id, $owner, $title, $description, $goal, $deadline);
+    return new \Project($id, $owner, $title, $description, $goal, $deadline, $category);
   }
 }
 
@@ -39,7 +39,7 @@ function getProject($id) {
   } else {
     $result = $result[0];
     $result['DEADLINE'] = \DateHelper\beautifyDateFromSql($result['DEADLINE']);
-    return new \Project($result['ID'], $result['OWNER'], $result['TITLE'], $result['DESCRIPTION'], $result['GOAL'], $result['DEADLINE']);
+    return new \Project($result['ID'], $result['OWNER'], $result['TITLE'], $result['DESCRIPTION'], $result['GOAL'], $result['DEADLINE'], $result['CATEGORY']);
   }
 }
 
@@ -64,7 +64,7 @@ function getAllProject($sortByColumn = null) {
   $projects = array();
   foreach ($result as $res) {
     $res['DEADLINE'] = \DateHelper\beautifyDateFromSql($res['DEADLINE']);
-    $projects[] = new \Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE']);
+    $projects[] = new \Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE'], $res['CATEGORY']);
   }
 
   return $projects;
@@ -78,7 +78,7 @@ function getAllProjectPopular() {
   $projects = array();
   foreach ($result as $res) {
     $res['DEADLINE'] = \DateHelper\beautifyDateFromSql($res['DEADLINE']);
-    $projects[] = new \Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE']);
+    $projects[] = new \Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE'], $res['CATEGORY']);
   }
 
   return $projects;

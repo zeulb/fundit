@@ -12,21 +12,23 @@ class Project {
   private $description;
   private $goal;
   private $deadline;
+  private $category;
 
   private function save() {
     $this->deadline = \DateHelper\convertToSqlFormatFromString($this->deadline);
-    $statement = "UPDATE fundit_project SET owner='{$this->owner}', title='{$this->title}', description='{$this->description}', goal='{$this->goal}', deadline='{$this->deadline}' WHERE id='{$this->id}'";
+    $statement = "UPDATE fundit_project SET owner='{$this->owner}', title='{$this->title}', description='{$this->description}', goal='{$this->goal}', deadline='{$this->deadline}', category='{$this->category}' WHERE id='{$this->id}'";
     $this->deadline = \DateHelper\beautifyDateFromSql($this->deadline);
     return DBHandler::execute($statement, false);
   }
 
-  public function __construct($id, $owner, $title, $description, $goal, $deadline) {
+  public function __construct($id, $owner, $title, $description, $goal, $deadline, $category) {
     $this->id = $id;
     $this->owner = $owner;
     $this->title = $title;
     $this->description = $description;
     $this->goal = $goal;
     $this->deadline = $deadline;
+    $this->category = $category;
   }
 
   public function getId() {
@@ -53,6 +55,10 @@ class Project {
     return $this->deadline;
   }
 
+  public function getCategory() {
+    return $this->category;
+  }
+
   public function setTitle($title) {
     $this->title = $title;
     return $this->save();
@@ -73,15 +79,20 @@ class Project {
     return $this->save();
   }
 
+  public function setCategory($category) {
+    $this->category = $category;
+    return $this->save();
+  }
+
   public function getContributionList() {
-    $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id}";
+    $statement = "SELECT * FROM fundit_contribution WHERE project_id = {$this->id} ORDER BY timestamp DESC";
 
     $result = DBHandler::execute($statement, true);
 
     $contributions = array();
     foreach ($result as $res) {
       $res['TIMESTAMP'] = \DateHelper\beautifyDateFromSql($res['TIMESTAMP']);
-      $contributions[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECT_ID'], $res['TIMESTAMP'], $res['AMOUNT'], $res['MESSAGE']);
+      $contributions[] = new Contribution($res['ID'], $res['CONTRIBUTOR'], $res['PROJECT_ID'], $res['TIMESTAMP'], $res['AMOUNT'], $res['COMMENT'], $res['MESSAGE']);
     }
 
     return $contributions;
