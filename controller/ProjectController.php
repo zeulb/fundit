@@ -43,13 +43,13 @@ function getProject($id) {
   }
 }
 
-function getAllProject($sortBy = null) {
+function getAllProject($sortByColumn = null) {
   $statement = "SELECT * FROM fundit_project";
 
-  if (isset($sortBy) && \ArrayHelper\is_assoc($sortBy)) {
+  if (isset($sortByColumn) && \ArrayHelper\is_assoc($sortByColumn)) {
     $statement .= " ORDER BY";
     $first = true;
-    foreach ($sortBy as $key => $value) {
+    foreach ($sortByColumn as $key => $value) {
       if (!$first) {
         $statement .= ", {$key} {$value}";
       } else {
@@ -58,6 +58,20 @@ function getAllProject($sortBy = null) {
       $first = false;
     }
   }
+
+  $result = \DBHandler::execute($statement, true);
+
+  $projects = array();
+  foreach ($result as $res) {
+    $res['DEADLINE'] = \DateHelper\beautifyDateFromSql($res['DEADLINE']);
+    $projects[] = new \Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE']);
+  }
+
+  return $projects;
+}
+
+function getAllProjectPopular() {
+  $statement = "SELECT p.title FROM fundit_project p LEFT OUTER JOIN (SELECT project_id AS pid, SUM(AMOUNT) as total FROM fundit_contribution GROUP BY project_id) s ON p.id = s.pid ORDER BY COALESCE(total, 0) DESC;";
 
   $result = \DBHandler::execute($statement, true);
 
