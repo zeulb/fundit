@@ -116,6 +116,9 @@
           <input class="form-control" id="verify_password" name="verify_password" type="password" value="">
         </div>
         <button class="btn btn-success" id="submit" name="submit" type="buttom">Submit</button>
+      <a href="delete_user.php?name=<?php echo $user->getUsername() ?>">
+          <button class="btn btn-danger" type="button">Delete</button>
+        </a>
       </form>
       <br/>
     </div>

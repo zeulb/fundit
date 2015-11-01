@@ -30,7 +30,7 @@
         unset($username);
         unset($email);
       } else {
-        $message = "Username or email already exists";
+        $message = "Username or email already exists or invalid email format";
         $message_type = "danger";
       }
     }
