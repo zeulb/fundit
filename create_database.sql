@@ -57,4 +57,4 @@ INSERT INTO fundit_roles VALUES('creator');
 --SELECT fundit_user_seq.CURRVAL FROM dual;
 INSERT INTO fundit_user (username, name, email, roles, password) VALUES ('budi', 'budi_bola', 'budi@bola.com', 'admin', '529ca8050a00180790cf88b63468826a');
 INSERT INTO fundit_category VALUES ('Others');
-INSERT INTO fundit_project (id, owner, title, description, goal, deadline, category) VALUES (1, 'budi', 'bolpen untuk irvin', 'beliin bolpen', 800, '31-OCT-15 02.23.04.000000000 AM', 'Others');
+INSERT INTO fundit_project (id, owner, title, description, goal, deadline, category, created_date) VALUES (1, 'budi', 'bolpen untuk irvin', 'beliin bolpen', 800, '31-OCT-15 02.23.04.000000000 AM', 'Others', '31-OCT-15 02.23.04.000000000 AM');
