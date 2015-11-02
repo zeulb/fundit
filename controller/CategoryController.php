@@ -13,7 +13,7 @@ function getProjectWithCategory($category) {
   $projects = array();
   foreach ($result as $res) {
     $res['DEADLINE'] = \DateHelper\beautifyDateFromSql($res['DEADLINE']);
-    $res['CREATED_DATE'] = \DateHelper\beautifyDateFromSql($res['DEADLINE']);
+    $res['CREATED_DATE'] = \DateHelper\beautifyDateFromSql($res['CREATED_DATE']);
     $projects[] = new \Project($res['ID'], $res['OWNER'], $res['TITLE'], $res['DESCRIPTION'], $res['GOAL'], $res['DEADLINE'], $res['CATEGORY'], $res['CREATED_DATE']);
   }
 
