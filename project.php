@@ -59,8 +59,8 @@
             <a href="new_category.php">Add Category
             </a>
           </button>
-          </p>
           <?php } ?>
+          </p>
 
           <?php
           $counter = 0; 
