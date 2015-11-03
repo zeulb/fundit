@@ -70,7 +70,11 @@
     <div class="row"> 
       <ul class="nav nav-pills">
         <li role="presentation"><a href="user.php?name=<?php echo $user->getUsername(); ?>"><?php echo $user->getUsername(); ?></a></li>
+        <?php
+          if (UserController\isCreator($user->getUsername())) { ?>
         <li role="presentation"><a href="user.php?page=project&name=<?php echo $user->getUsername(); ?>">Project started</a></li>
+        <?php
+          } ?>
         <li role="presentation"><a href="user.php?page=contribution&name=<?php echo $user->getUsername(); ?>">Contributions</a></li>
 
         <?php
