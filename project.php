@@ -146,13 +146,13 @@
         <ul class="nav nav-pills">
           <li role="presentation" class="active"><a href="project.php?id=<?php echo $project->getId(); ?>"><?php echo $project->getTitle(); ?></a></li>
           <li role="presentation"><a href="project.php">Recent</a></li>
-          <li role="presentation"><a href="#">Popular</a></li>
+          <li role="presentation"><a href="project.php?page=popular">Popular</a></li>
 
           <?php
             if (UserController\isSignedIn() && UserController\isCreator($_SESSION["username"])) {
           ?>
           <li role="presentation" style="float:right;"><a href="new_project.php">Create Project</a></li>
-          <li role="presentation" style="float:right;"><a href="#">Managed Project</a></li>
+          <li role="presentation" style="float:right;"><a href="project.php?page=manager">Managed Project</a></li>
           <?php
             }
           ?>
